@@ -26,6 +26,7 @@ public class Inventory_Handler : MonoBehaviour
     public Text Healtxt;
     //Ammonition
     public int small_ammo;
+    public int mid_ammo;
     //Andere Objekte
     public GameObject Weapons;
     public int lootcount;
@@ -56,6 +57,9 @@ public class Inventory_Handler : MonoBehaviour
 
         if(Player_Heal == 6) Player_Heal -= 1;
         if(Player_Heal2 == 6) Player_Heal -= 1;
+
+        mid_ammo = gameObject.GetComponent<Shoot>().mid_ammo;
+        small_ammo = gameObject.GetComponent<Shoot>().small_ammo;
     }
 
     void LateUpdate() {
@@ -175,7 +179,7 @@ public class Inventory_Handler : MonoBehaviour
             Glock_18_Selected = false;
             Weapons.transform.Find("Sniper_Top").gameObject.SetActive(false);
             Sniper_Selected = false;
-        }else if(Slot1_Item == "Glock_18"){
+        }else if(Slot1_Item == "Sniper"){
             //Aktive Waffe
             Weapons.transform.Find("Sniper_Top").gameObject.SetActive(true);
             Sniper_Selected = true;
@@ -222,7 +226,7 @@ public class Inventory_Handler : MonoBehaviour
             Glock_18_Selected = false;
             Weapons.transform.Find("Sniper_Top").gameObject.SetActive(false);
             Sniper_Selected = false;
-        }else if(Slot2_Item == "Glock_18"){
+        }else if(Slot2_Item == "Sniper"){
             //Aktive Waffe
             Weapons.transform.Find("Sniper_Top").gameObject.SetActive(true);
             Sniper_Selected = true;
@@ -269,7 +273,7 @@ public class Inventory_Handler : MonoBehaviour
             Glock_18_Selected = false;
             Weapons.transform.Find("Sniper_Top").gameObject.SetActive(false);
             Sniper_Selected = false;
-        }else if(Slot3_Item == "Glock_18"){
+        }else if(Slot3_Item == "Sniper"){
             //Aktive Waffe
             Weapons.transform.Find("Sniper_Top").gameObject.SetActive(true);
             Sniper_Selected = true;
@@ -286,7 +290,7 @@ public class Inventory_Handler : MonoBehaviour
     public void Slot4_function(){
         //Heal Funktion
         if(Player_Heal > 0 && GameObject.Find("Player").GetComponent<Player_Health>().health < 200){
-            Player_Heal -= 1;
+            Player_Heal2 -= 1;
             GameObject.Find("Player").GetComponent<Player_Health>().health += 20;
         }
     }
