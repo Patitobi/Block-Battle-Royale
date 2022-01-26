@@ -27,6 +27,7 @@ public class Inventory_Handler : MonoBehaviour
     //Ammonition
     public int small_ammo;
     public int mid_ammo;
+    public int big_ammo;
     //Andere Objekte
     public GameObject Weapons;
     public int lootcount;
@@ -57,9 +58,16 @@ public class Inventory_Handler : MonoBehaviour
 
         if(Player_Heal == 6) Player_Heal -= 1;
         if(Player_Heal2 == 6) Player_Heal -= 1;
-
+        
+        //Munition Aktuell mit dem Shoot Script halten
         mid_ammo = gameObject.GetComponent<Shoot>().mid_ammo;
         small_ammo = gameObject.GetComponent<Shoot>().small_ammo;
+        big_ammo = gameObject.GetComponent<Shoot>().big_ammo;
+
+        //Munition im UI anzeigen
+        GameObject.Find("Small Ammo Reserve").GetComponent<Text>().text = "Small Ammo: " + small_ammo.ToString();
+        GameObject.Find("Mid Ammo Reserve").GetComponent<Text>().text = "Mid Ammo: " + mid_ammo.ToString();
+        GameObject.Find("Big Ammo Reserve").GetComponent<Text>().text = "Big Ammo: " + big_ammo.ToString();
     }
 
     void LateUpdate() {
