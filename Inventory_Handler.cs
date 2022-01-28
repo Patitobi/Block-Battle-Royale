@@ -28,18 +28,26 @@ public class Inventory_Handler : MonoBehaviour
     public int small_ammo;
     public int mid_ammo;
     public int big_ammo;
+    public int mag_small_ammo;
+    public int mag_mid_ammo;
+    public int mag_big_ammo;
     //Andere Objekte
     public GameObject Weapons;
     public int lootcount;
     public int lootcount2;
     public int Player_Heal;
     public int Player_Heal2;
+    public GameObject Player;
+    //Aktuelles Magazin und Reserve
+    public int CurrentMag;
+    public int CurrentMaxMag;
 
     // Start is called before the first frame update
     void Start()
     {
         Healtxt = GameObject.Find("Heal_Count").GetComponent<Text>();
         Weapons = GameObject.Find("Weapons");
+        Player = GameObject.Find("Player");
         Player_Heal = 0;
     }
 
@@ -58,21 +66,24 @@ public class Inventory_Handler : MonoBehaviour
 
         if(Player_Heal == 6) Player_Heal -= 1;
         if(Player_Heal2 == 6) Player_Heal -= 1;
-        
-        //Munition Aktuell mit dem Shoot Script halten
-        mid_ammo = gameObject.GetComponent<Shoot>().mid_ammo;
-        small_ammo = gameObject.GetComponent<Shoot>().small_ammo;
-        big_ammo = gameObject.GetComponent<Shoot>().big_ammo;
 
         //Munition im UI anzeigen
         GameObject.Find("Small Ammo Reserve").GetComponent<Text>().text = "Small Ammo: " + small_ammo.ToString();
         GameObject.Find("Mid Ammo Reserve").GetComponent<Text>().text = "Mid Ammo: " + mid_ammo.ToString();
         GameObject.Find("Big Ammo Reserve").GetComponent<Text>().text = "Big Ammo: " + big_ammo.ToString();
+
+        //Aktuelles MAG UI Aktuallisieren
+        MagUI(); 
+
+        //MagUI Funktion darstellen.
+        GameObject.Find("Ammo_Reserve").GetComponent<Text>().text = CurrentMaxMag.ToString();
+        GameObject.Find("Ammo_Mag").GetComponent<Text>().text = CurrentMag.ToString();
     }
 
     void LateUpdate() {
         lootcount = lootcount2; //Ist dazu da den Lootcount ein wenig später zu aktualisieren damit langsame handys keine Probleme beim Lootcount haben
-        Player_Heal = Player_Heal2;   
+        Player_Heal = Player_Heal2; 
+ 
     }
 
     void OnCollisionEnter2D(Collision2D collision) {
@@ -300,6 +311,25 @@ public class Inventory_Handler : MonoBehaviour
         if(Player_Heal > 0 && GameObject.Find("Player").GetComponent<Player_Health>().health < 200){
             Player_Heal2 -= 1;
             GameObject.Find("Player").GetComponent<Player_Health>().health += 20;
+        }
+    }
+    
+    void MagUI(){
+        if(gameObject.GetComponent<Inventory_Handler>().Glock_18_Selected == true){
+            CurrentMag = mag_small_ammo;
+            CurrentMaxMag = small_ammo;
+        }
+        if(gameObject.GetComponent<Inventory_Handler>().M4_Selected == true){
+            CurrentMag = mag_mid_ammo;
+            CurrentMaxMag = mid_ammo;
+        }
+        if(gameObject.GetComponent<Inventory_Handler>().Ak47_Selected == true){
+            CurrentMag = mag_mid_ammo;
+            CurrentMaxMag = mid_ammo;
+        }
+        if(gameObject.GetComponent<Inventory_Handler>().Sniper_Selected == true){
+            CurrentMag = mag_big_ammo;
+            CurrentMaxMag = big_ammo;
         }
     }
 }

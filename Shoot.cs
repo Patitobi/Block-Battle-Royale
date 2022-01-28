@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Shoot : MonoBehaviour
 {
+    public Inventory_Handler Inv;
     GameObject Player;
     public GameObject Bullet;
     public GameObject Feuerpunkt; 
@@ -11,18 +12,13 @@ public class Shoot : MonoBehaviour
     public bool shootbttn = false;
     public bool reloadbttn = false;
     public bool inreload;
-    public int small_ammo;
-    public int mid_ammo;
-    public int big_ammo;
-    public int mag_small_ammo;
-    public int mag_mid_ammo;
-    public int mag_big_ammo;
 
     // Start is called before the first frame update
     void Start()
     {
         Player = GameObject.Find("Player");
         Feuerpunkt = GameObject.Find("Feuerpunkt");
+        Inv = Player.GetComponent<Inventory_Handler>();
     }
 
     // Update is called once per frame
@@ -39,34 +35,34 @@ public class Shoot : MonoBehaviour
 
      IEnumerator shoot(){
          //Glock-18
-        if(GameObject.Find("Player").GetComponent<Inventory_Handler>().Glock_18_Selected == true && isshooting == false && mag_small_ammo > 0){
+        if(GameObject.Find("Player").GetComponent<Inventory_Handler>().Glock_18_Selected == true && isshooting == false && Inv.mag_small_ammo > 0){
             isshooting = true;
             Instantiate(Bullet, Feuerpunkt.transform.position, Feuerpunkt.transform.rotation); //WICHTIG Glock reloaded zu schnell!
-            mag_small_ammo--;
+            Inv.mag_small_ammo--;
             yield return new WaitForSeconds(1f); 
             isshooting = false;
         }
         //Reload Glock-18
-        if(mag_small_ammo == 0 && inreload == false && small_ammo > 0 && GameObject.Find("Player").GetComponent<Inventory_Handler>().Glock_18_Selected == true && isshooting == false){
+        if(Inv.mag_small_ammo == 0 && inreload == false && Inv.small_ammo > 0 && GameObject.Find("Player").GetComponent<Inventory_Handler>().Glock_18_Selected == true && isshooting == false){
             inreload = true;
-            small_ammo -= 12;
-            if(small_ammo < 0){
-                small_ammo += 12;
-                mag_small_ammo = small_ammo;
-                small_ammo = 0;
+            Inv.small_ammo -= 12;
+            if(Inv.small_ammo < 0){
+                Inv.small_ammo += 12;
+                Inv.mag_small_ammo = Inv.small_ammo;
+                Inv.small_ammo = 0;
                 yield return new WaitForSeconds (2.5f);
                 goto reloadend;
             }
             yield return new WaitForSeconds (2.5f);
-            mag_small_ammo += 12;
+            Inv.mag_small_ammo += 12;
             reloadend:
             inreload = false;
         }
         
         //Für Automatische Gewähre. (M4)
-        if(GameObject.Find("Player").GetComponent<Inventory_Handler>().M4_Selected == true && isshooting == false && mag_mid_ammo > 0){
+        if(GameObject.Find("Player").GetComponent<Inventory_Handler>().M4_Selected == true && isshooting == false && Inv.mag_mid_ammo > 0){
             isshooting = true;
-            for( ; mag_mid_ammo != 0 ; mag_mid_ammo--){
+            for( ; Inv.mag_mid_ammo != 0 ; Inv.mag_mid_ammo--){
                 if(shootbttn == false) goto ende;
                 Instantiate(Bullet, Feuerpunkt.transform.position, Feuerpunkt.transform.rotation);
                 yield return new WaitForSecondsRealtime(0.3f);
@@ -75,26 +71,26 @@ public class Shoot : MonoBehaviour
             isshooting = false;
         }
         //Reload M4
-        if(mag_mid_ammo == 0 && inreload == false && mid_ammo > 0 && GameObject.Find("Player").GetComponent<Inventory_Handler>().M4_Selected == true && isshooting == false){
+        if(Inv.mag_mid_ammo == 0 && inreload == false && Inv.mid_ammo > 0 && GameObject.Find("Player").GetComponent<Inventory_Handler>().M4_Selected == true && isshooting == false){
             inreload = true;
-            mid_ammo -= 25;
-            if(mid_ammo < 0){
-                mid_ammo += 25;
-                mag_mid_ammo = mid_ammo;
-                mid_ammo = 0;
+            Inv.mid_ammo -= 25;
+            if(Inv.mid_ammo < 0){
+                Inv.mid_ammo += 25;
+                Inv.mag_mid_ammo = Inv.mid_ammo;
+                Inv.mid_ammo = 0;
                 yield return new WaitForSeconds (3.5f);
                 goto reloadend;
             }
             yield return new WaitForSeconds (3.5f);
-            mag_mid_ammo += 25;
+            Inv.mag_mid_ammo += 25;
             reloadend:
             inreload = false;
         }
 
         //Für Automatische Gewähre. (Ak47)
-        if(GameObject.Find("Player").GetComponent<Inventory_Handler>().Ak47_Selected == true && isshooting == false && mag_mid_ammo > 0){
+        if(GameObject.Find("Player").GetComponent<Inventory_Handler>().Ak47_Selected == true && isshooting == false && Inv.mag_mid_ammo > 0){
             isshooting = true;
-            for( ; mag_mid_ammo != 0 ; mag_mid_ammo--){
+            for( ; Inv.mag_mid_ammo != 0 ; Inv.mag_mid_ammo--){
                 if(shootbttn == false) goto ende;
                 Instantiate(Bullet, Feuerpunkt.transform.position, Feuerpunkt.transform.rotation);
                 yield return new WaitForSecondsRealtime(0.3f);
@@ -103,26 +99,26 @@ public class Shoot : MonoBehaviour
             isshooting = false;
         }
         //Reload Ak47
-        if(mag_mid_ammo == 0 && inreload == false && mid_ammo > 0 && GameObject.Find("Player").GetComponent<Inventory_Handler>().Ak47_Selected == true && isshooting == false){
+        if(Inv.mag_mid_ammo == 0 && inreload == false && Inv.mid_ammo > 0 && GameObject.Find("Player").GetComponent<Inventory_Handler>().Ak47_Selected == true && isshooting == false){
             inreload = true;
-            mid_ammo -= 25;
-            if(mid_ammo < 0){
-                mid_ammo += 25;
-                mag_mid_ammo = mid_ammo;
-                mid_ammo = 0;
+            Inv.mid_ammo -= 25;
+            if(Inv.mid_ammo < 0){
+                Inv.mid_ammo += 25;
+                Inv.mag_mid_ammo = Inv.mid_ammo;
+                Inv.mid_ammo = 0;
                 yield return new WaitForSeconds (3.5f);
                 goto reloadend;
             }
             yield return new WaitForSeconds (3.5f);
-            mag_mid_ammo += 25;
+            Inv.mag_mid_ammo += 25;
             reloadend:
             inreload = false;
         }
 
         //Sniper
-        if(GameObject.Find("Player").GetComponent<Inventory_Handler>().Sniper_Selected == true && isshooting == false && mag_big_ammo > 0){
+        if(GameObject.Find("Player").GetComponent<Inventory_Handler>().Sniper_Selected == true && isshooting == false && Inv.mag_big_ammo > 0){
             isshooting = true;
-            for( ; mag_big_ammo != 0 ; mag_big_ammo--){
+            for( ; Inv.mag_big_ammo != 0 ; Inv.mag_big_ammo--){
                 if(shootbttn == false) goto ende;
                 Instantiate(Bullet, Feuerpunkt.transform.position, Feuerpunkt.transform.rotation);
                 yield return new WaitForSecondsRealtime(2.5f);
@@ -132,18 +128,18 @@ public class Shoot : MonoBehaviour
         }
 
         //Reload Sniper
-        if(mag_big_ammo == 0 && inreload == false && big_ammo > 0 && GameObject.Find("Player").GetComponent<Inventory_Handler>().Sniper_Selected == true && isshooting == false){
+        if(Inv.mag_big_ammo == 0 && inreload == false && Inv.big_ammo > 0 && GameObject.Find("Player").GetComponent<Inventory_Handler>().Sniper_Selected == true && isshooting == false){
             inreload = true;
-            big_ammo -= 5;
-            if(big_ammo < 0){
-                big_ammo += 5;
-                mag_big_ammo = big_ammo;
-                big_ammo = 0;
+            Inv.big_ammo -= 5;
+            if(Inv.big_ammo < 0){
+                Inv.big_ammo += 5;
+                Inv.mag_big_ammo = Inv.big_ammo;
+                Inv.big_ammo = 0;
                 yield return new WaitForSeconds (6f);
                 goto reloadend;
             }
             yield return new WaitForSeconds (6f);
-            mag_big_ammo += 5;
+            Inv.mag_big_ammo += 5;
             reloadend:
             inreload = false;
         }
@@ -165,61 +161,61 @@ public class Shoot : MonoBehaviour
 
     public IEnumerator reload(){
         //Reload Glock-18
-        if(inreload == false && GameObject.Find("Player").GetComponent<Inventory_Handler>().Glock_18_Selected == true && isshooting == false && mag_small_ammo != 12){
+        if(inreload == false && GameObject.Find("Player").GetComponent<Inventory_Handler>().Glock_18_Selected == true && isshooting == false && Inv.mag_small_ammo != 12){
             inreload = true;
             yield return new WaitForSeconds(2f);
-            small_ammo += mag_small_ammo;
-            if(small_ammo >= 12){
-                mag_small_ammo = 12;
-                small_ammo -= 12;
-            }else if(small_ammo < 12){
-                mag_small_ammo = small_ammo;
-                small_ammo = 0;
+            Inv.small_ammo += Inv.mag_small_ammo;
+            if(Inv.small_ammo >= 12){
+                Inv.mag_small_ammo = 12;
+                Inv.small_ammo -= 12;
+            }else if(Inv.small_ammo < 12){
+                Inv.mag_small_ammo = Inv.small_ammo;
+                Inv.small_ammo = 0;
             }
             inreload = false;
         }
 
         //Reload M4
-        if(inreload == false && GameObject.Find("Player").GetComponent<Inventory_Handler>().M4_Selected == true && isshooting == false && mag_mid_ammo != 25){
+        if(inreload == false && GameObject.Find("Player").GetComponent<Inventory_Handler>().M4_Selected == true && isshooting == false && Inv.mag_mid_ammo != 25){
             inreload = true;
             yield return new WaitForSeconds(4f);
-            mid_ammo += mag_mid_ammo;
-            if(mid_ammo >= 25){
-                mag_mid_ammo = 25;
-                mid_ammo -= 25;
-            }else if(mid_ammo < 25){
-                mag_mid_ammo = mid_ammo;
-                mid_ammo = 0;
+            Inv.mid_ammo += Inv.mag_mid_ammo;
+            if(Inv.mid_ammo >= 25){
+                Inv.mag_mid_ammo = 25;
+                Inv.mid_ammo -= 25;
+            }else if(Inv.mid_ammo < 25){
+                Inv.mag_mid_ammo = Inv.mid_ammo;
+                Inv.mid_ammo = 0;
             }
             inreload = false;
         }
 
         //Reload M4
-        if(inreload == false && GameObject.Find("Player").GetComponent<Inventory_Handler>().Ak47_Selected == true && isshooting == false && mag_mid_ammo != 25){
+        if(inreload == false && GameObject.Find("Player").GetComponent<Inventory_Handler>().Ak47_Selected == true && isshooting == false && Inv.mag_mid_ammo != 25){
             inreload = true;
             yield return new WaitForSeconds(4f);
-            mid_ammo += mag_mid_ammo;
-            if(mid_ammo >= 25){
-                mag_mid_ammo = 25;
-                mid_ammo -= 25;
-            }else if(mid_ammo < 25){
-                mag_mid_ammo = mid_ammo;
-                mid_ammo = 0;
+            Inv.mid_ammo += Inv.mag_mid_ammo;
+            if(Inv.mid_ammo >= 25){
+                Inv.mag_mid_ammo = 25;
+                Inv.mid_ammo -= 25;
+            }else if(Inv.mid_ammo < 25){
+                Inv.mag_mid_ammo = Inv.mid_ammo;
+                Inv.mid_ammo = 0;
             }
             inreload = false;
         }
 
         //Reload Sniper
-        if(inreload == false && GameObject.Find("Player").GetComponent<Inventory_Handler>().Sniper_Selected == true && isshooting == false && mag_big_ammo != 5){
+        if(inreload == false && GameObject.Find("Player").GetComponent<Inventory_Handler>().Sniper_Selected == true && isshooting == false && Inv.mag_big_ammo != 5){
             inreload = true;
             yield return new WaitForSeconds(5f);
-            big_ammo += mag_big_ammo;
-            if(big_ammo >= 5){
-                mag_big_ammo = 5;
-                big_ammo -= 5;
-            }else if(big_ammo < 5){
-                mag_big_ammo = big_ammo;
-                big_ammo = 0;
+            Inv.big_ammo += Inv.mag_big_ammo;
+            if(Inv.big_ammo >= 5){
+                Inv.mag_big_ammo = 5;
+                Inv.big_ammo -= 5;
+            }else if(Inv.big_ammo < 5){
+                Inv.mag_big_ammo = Inv.big_ammo;
+                Inv.big_ammo = 0;
             }
             inreload = false;
         }
