@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Weapon_Info : MonoBehaviour
 {
-    public int mag_small_ammo;
-    public int mag_mid_ammo;
-    public int mag_big_ammo;
+    int small_ammo;
+    int mid_ammo;
+    int big_ammo;
     // Start is called before the first frame update
     void Start()
     {
