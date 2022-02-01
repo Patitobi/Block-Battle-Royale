@@ -18,6 +18,10 @@ public class Inventory_Handler : MonoBehaviour
     public bool Slot1 = false;
     public bool Slot2 = false;
     public bool Slot3 = false;
+    //Aktuell Ausgewählter Slot
+    public bool Slot1_Selected = false;
+    public bool Slot2_Selected = false;
+    public bool Slot3_Selected = false;
     //Sprites zum austauschen fürs Inventar UI.
     public Sprite Glock_18;
     public Sprite M4;
@@ -28,9 +32,9 @@ public class Inventory_Handler : MonoBehaviour
     public int small_ammo;
     public int mid_ammo;
     public int big_ammo;
-    public int mag_small_ammo;
-    public int mag_mid_ammo;
-    public int mag_big_ammo;
+    public int slot1_mag_ammo;
+    public int slot2_mag_ammo;
+    public int slot3_mag_ammo;
     //Andere Objekte
     public GameObject Weapons;
     public int lootcount;
@@ -40,7 +44,7 @@ public class Inventory_Handler : MonoBehaviour
     public GameObject Player;
     //Aktuelles Magazin und Reserve
     public int CurrentMag;
-    public int CurrentMaxMag;
+    public int CurrentMaxAmmo;
 
     // Start is called before the first frame update
     void Start()
@@ -70,14 +74,35 @@ public class Inventory_Handler : MonoBehaviour
         //Munition im UI anzeigen
         GameObject.Find("Small Ammo Reserve").GetComponent<Text>().text = "Small Ammo: " + small_ammo.ToString();
         GameObject.Find("Mid Ammo Reserve").GetComponent<Text>().text = "Mid Ammo: " + mid_ammo.ToString();
-        GameObject.Find("Big Ammo Reserve").GetComponent<Text>().text = "Big Ammo: " + big_ammo.ToString();
-
-        //Aktuelles MAG UI Aktuallisieren
-        MagUI(); 
+        GameObject.Find("Big Ammo Reserve").GetComponent<Text>().text = "Big Ammo: " + big_ammo.ToString(); 
 
         //MagUI Funktion darstellen.
-        GameObject.Find("Ammo_Reserve").GetComponent<Text>().text = CurrentMaxMag.ToString();
+        GameObject.Find("Ammo_Reserve").GetComponent<Text>().text = CurrentMaxAmmo.ToString();
         GameObject.Find("Ammo_Mag").GetComponent<Text>().text = CurrentMag.ToString();
+
+        //Mag wird aufs Aktuelle gewechselt. Mann Könnte bei den Conditionen bei Problemen andere Waffen auf False setzen.
+        if(Glock_18_Selected == true){
+            CurrentMaxAmmo = small_ammo;
+        }else if(M4_Selected == true){
+            CurrentMaxAmmo = mid_ammo;
+        }else if(Ak47_Selected == true){
+            CurrentMaxAmmo = mid_ammo;
+        }else if(Sniper_Selected == true){
+            CurrentMaxAmmo = big_ammo;
+        }else{
+            CurrentMaxAmmo = 0;
+        }
+
+        //Stellt das Aktuelle Slot mag auf den Current mag um dann mit dem CurrentMag zu reloden und anzuzeigen.
+        if(Slot1_Selected == true){
+            CurrentMag = slot1_mag_ammo;
+        }else if(Slot2_Selected == true){
+            CurrentMag = slot2_mag_ammo;
+        }else if(Slot3_Selected == true){
+            CurrentMag = slot3_mag_ammo;
+        }else{
+            CurrentMag = 0;
+        }
     }
 
     void LateUpdate() {
@@ -87,64 +112,83 @@ public class Inventory_Handler : MonoBehaviour
     }
 
     void OnCollisionEnter2D(Collision2D collision) {
+        //Slot1
         if(Slot1 == false){
         if(collision.gameObject.tag == "Glock_18" && lootcount <= 3){
             Slot1_Item = "Glock_18";
             Slot1 = true;
             GameObject.Find("Icon1").GetComponent<Image>().sprite = Glock_18;
-        } else if(collision.gameObject.tag == "M4" && lootcount <= 3){
+            slot1_mag_ammo = collision.gameObject.GetComponent<Weapon_Info>().Currentammo;
+            
+        }else if(collision.gameObject.tag == "M4" && lootcount <= 3){
             Slot1_Item = "M4";
             Slot1 = true;
             GameObject.Find("Icon1").GetComponent<Image>().sprite = M4;
+            slot1_mag_ammo = collision.gameObject.GetComponent<Weapon_Info>().Currentammo;
         }else if(collision.gameObject.tag == "AK_47" && lootcount <= 3){
             Slot1_Item = "Ak47";
             Slot1 = true;
             GameObject.Find("Icon1").GetComponent<Image>().sprite = Ak47;
+            slot1_mag_ammo = collision.gameObject.GetComponent<Weapon_Info>().Currentammo;
         }else if(collision.gameObject.tag == "Sniper" && lootcount <= 3){
             Slot1_Item = "Sniper";
             Slot1 = true;
             GameObject.Find("Icon1").GetComponent<Image>().sprite = Sniper;
+            slot1_mag_ammo = collision.gameObject.GetComponent<Weapon_Info>().Currentammo;
         }
         }
-
+        //Slot2
         else if(Slot2 == false && Slot1 == true){
         if(collision.gameObject.tag == "Glock_18" && lootcount <= 3){
             Slot2_Item = "Glock_18";
             Slot2 = true;
             GameObject.Find("Icon2").GetComponent<Image>().sprite = Glock_18;
+            slot2_mag_ammo = collision.gameObject.GetComponent<Weapon_Info>().Currentammo;
         } else if(collision.gameObject.tag == "M4" && lootcount <= 3){
             Slot2_Item = "M4";
             Slot2 = true;
             GameObject.Find("Icon2").GetComponent<Image>().sprite = M4;
+            slot2_mag_ammo = collision.gameObject.GetComponent<Weapon_Info>().Currentammo;
         }else if(collision.gameObject.tag == "AK_47" && lootcount <= 3){
             Slot2_Item = "Ak47";
             Slot2 = true;
             GameObject.Find("Icon2").GetComponent<Image>().sprite = Ak47;
+            slot2_mag_ammo = collision.gameObject.GetComponent<Weapon_Info>().Currentammo;
         }else if(collision.gameObject.tag == "Sniper" && lootcount <= 3){
             Slot2_Item = "Sniper";
             Slot2 = true;
             GameObject.Find("Icon2").GetComponent<Image>().sprite = Sniper;
+            slot2_mag_ammo = collision.gameObject.GetComponent<Weapon_Info>().Currentammo;
         }
         }
-
+        //Slot3
         else if(Slot3 == false && Slot2 == true && Slot1 == true){
         if(collision.gameObject.tag == "Glock_18" && lootcount <= 3){
             Slot3_Item = "Glock_18";
             Slot3 = true;
             GameObject.Find("Icon3").GetComponent<Image>().sprite = Glock_18;
+            slot3_mag_ammo = collision.gameObject.GetComponent<Weapon_Info>().Currentammo;
         } else if(collision.gameObject.tag == "M4" && lootcount <= 3){
             Slot3_Item = "M4";
             Slot3 = true;
             GameObject.Find("Icon3").GetComponent<Image>().sprite = M4;
+            slot3_mag_ammo = collision.gameObject.GetComponent<Weapon_Info>().Currentammo;
         }else if(collision.gameObject.tag == "AK_47" && lootcount <= 3){
             Slot3_Item = "Ak47";
             Slot3 = true;
             GameObject.Find("Icon3").GetComponent<Image>().sprite = Ak47;
+            slot3_mag_ammo = collision.gameObject.GetComponent<Weapon_Info>().Currentammo;
         }else if(collision.gameObject.tag == "Sniper" && lootcount <= 3){
             Slot3_Item = "Sniper";
             Slot3 = true;
             GameObject.Find("Icon3").GetComponent<Image>().sprite = Sniper;
+            slot3_mag_ammo = collision.gameObject.GetComponent<Weapon_Info>().Currentammo;
         }
+
+
+
+
+        //Lootcount
         }
         if(collision.gameObject.tag == "Glock_18" && lootcount < 3){
             lootcount2 += 1;
@@ -210,6 +254,9 @@ public class Inventory_Handler : MonoBehaviour
             Weapons.transform.Find("Glock_18_Top").gameObject.SetActive(false);
             Glock_18_Selected = false;
         }
+        Slot1_Selected = true;
+        Slot2_Selected = false;
+        Slot3_Selected = false;
     }
     public void Slot2_function(){
         if(Slot2_Item == "Glock_18"){
@@ -257,6 +304,9 @@ public class Inventory_Handler : MonoBehaviour
             Weapons.transform.Find("Glock_18_Top").gameObject.SetActive(false);
             Glock_18_Selected = false;
         }
+        Slot1_Selected = false;
+        Slot2_Selected = true;
+        Slot3_Selected = false;
     }
     public void Slot3_function(){
         if(Slot3_Item == "Glock_18"){
@@ -304,6 +354,9 @@ public class Inventory_Handler : MonoBehaviour
             Weapons.transform.Find("Glock_18_Top").gameObject.SetActive(false);
             Glock_18_Selected = false;
         }
+        Slot1_Selected = false;
+        Slot2_Selected = false;
+        Slot3_Selected = true;
     }
 
     public void Slot4_function(){
@@ -311,25 +364,6 @@ public class Inventory_Handler : MonoBehaviour
         if(Player_Heal > 0 && GameObject.Find("Player").GetComponent<Player_Health>().health < 200){
             Player_Heal2 -= 1;
             GameObject.Find("Player").GetComponent<Player_Health>().health += 20;
-        }
-    }
-    
-    void MagUI(){
-        if(gameObject.GetComponent<Inventory_Handler>().Glock_18_Selected == true){
-            CurrentMag = mag_small_ammo;
-            CurrentMaxMag = small_ammo;
-        }
-        if(gameObject.GetComponent<Inventory_Handler>().M4_Selected == true){
-            CurrentMag = mag_mid_ammo;
-            CurrentMaxMag = mid_ammo;
-        }
-        if(gameObject.GetComponent<Inventory_Handler>().Ak47_Selected == true){
-            CurrentMag = mag_mid_ammo;
-            CurrentMaxMag = mid_ammo;
-        }
-        if(gameObject.GetComponent<Inventory_Handler>().Sniper_Selected == true){
-            CurrentMag = mag_big_ammo;
-            CurrentMaxMag = big_ammo;
         }
     }
 }
