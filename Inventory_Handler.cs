@@ -50,7 +50,6 @@ public class Inventory_Handler : MonoBehaviour
     void Start()
     {
         Healtxt = GameObject.Find("Heal_Count").GetComponent<Text>();
-        Weapons = GameObject.Find("Weapons");
         Player = GameObject.Find("Player");
         Player_Heal = 0;
     }
@@ -72,9 +71,9 @@ public class Inventory_Handler : MonoBehaviour
         if(Player_Heal2 == 6) Player_Heal -= 1;
 
         //Munition im UI anzeigen
-        GameObject.Find("Small Ammo Reserve").GetComponent<Text>().text = "Small Ammo: " + small_ammo.ToString();
-        GameObject.Find("Mid Ammo Reserve").GetComponent<Text>().text = "Mid Ammo: " + mid_ammo.ToString();
-        GameObject.Find("Big Ammo Reserve").GetComponent<Text>().text = "Big Ammo: " + big_ammo.ToString(); 
+        GameObject.Find("Small Ammo Reserve").GetComponent<Text>().text = small_ammo.ToString();
+        GameObject.Find("Mid Ammo Reserve").GetComponent<Text>().text = mid_ammo.ToString();
+        GameObject.Find("Big Ammo Reserve").GetComponent<Text>().text = big_ammo.ToString(); 
 
         //MagUI Funktion darstellen.
         GameObject.Find("Ammo_Reserve").GetComponent<Text>().text = CurrentMaxAmmo.ToString();
@@ -111,7 +110,7 @@ public class Inventory_Handler : MonoBehaviour
  
     }
 
-    void OnCollisionEnter2D(Collision2D collision) {
+    void OnTriggerEnter2D(Collider2D collision) {
         //Slot1
         if(Slot1 == false){
         if(collision.gameObject.tag == "Glock_18" && lootcount <= 3){
@@ -184,12 +183,9 @@ public class Inventory_Handler : MonoBehaviour
             GameObject.Find("Icon3").GetComponent<Image>().sprite = Sniper;
             slot3_mag_ammo = collision.gameObject.GetComponent<Weapon_Info>().Currentammo;
         }
-
-
-
-
-        //Lootcount
         }
+        
+        //Lootcount
         if(collision.gameObject.tag == "Glock_18" && lootcount < 3){
             lootcount2 += 1;
         }
@@ -205,53 +201,65 @@ public class Inventory_Handler : MonoBehaviour
         if(collision.gameObject.tag == "Heal" && Player_Heal <= 4){
             Player_Heal2 += 1;
         }
+
+        //Munition Aufheben
+
+        if(collision.gameObject.tag == "Small_Ammo"){
+            small_ammo += collision.gameObject.GetComponent<Ammo_Info>().Ammo;
+        }
+        if(collision.gameObject.tag == "Mid_Ammo"){
+            mid_ammo += collision.gameObject.GetComponent<Ammo_Info>().Ammo;
+        }
+        if(collision.gameObject.tag == "Big_Ammo"){
+            big_ammo += collision.gameObject.GetComponent<Ammo_Info>().Ammo;
+        }
     }
 
 
     public void Slot1_function(){
         if(Slot1_Item == "Glock_18"){
             //Aktive Waffe
-            Weapons.transform.Find("Glock_18_Top").gameObject.SetActive(true);
+            Weapons.transform.Find("Glock_18_Top_Sprite").gameObject.SetActive(true);
             Glock_18_Selected = true;
             //Alle anderen Deaktivieren
-            Weapons.transform.Find("M4_Top").gameObject.SetActive(false);
+            Weapons.transform.Find("M4_Top_Sprite").gameObject.SetActive(false);
             M4_Selected = false;
-            Weapons.transform.Find("Ak47_Top").gameObject.SetActive(false);
+            Weapons.transform.Find("Ak47_Top_Sprite").gameObject.SetActive(false);
             Ak47_Selected = false;
-            Weapons.transform.Find("Sniper_Top").gameObject.SetActive(false);
+            Weapons.transform.Find("Sniper_Top_Sprite").gameObject.SetActive(false);
             Sniper_Selected = false;
         }else if(Slot1_Item == "M4"){
             //Aktive Waffe
-            Weapons.transform.Find("M4_Top").gameObject.SetActive(true);
+            Weapons.transform.Find("M4_Top_Sprite").gameObject.SetActive(true);
             M4_Selected = true;
             //Alle anderen Deaktivieren
-            Weapons.transform.Find("Glock_18_Top").gameObject.SetActive(false);
+            Weapons.transform.Find("Glock_18_Top_Sprite").gameObject.SetActive(false);
             Glock_18_Selected = false;
-            Weapons.transform.Find("Ak47_Top").gameObject.SetActive(false);
+            Weapons.transform.Find("Ak47_Top_Sprite").gameObject.SetActive(false);
             Ak47_Selected = false;
-            Weapons.transform.Find("Sniper_Top").gameObject.SetActive(false);
+            Weapons.transform.Find("Sniper_Top_Sprite").gameObject.SetActive(false);
             Sniper_Selected = false;
         }else if(Slot1_Item == "Ak47"){
             //Aktive Waffe
-            Weapons.transform.Find("Ak47_Top").gameObject.SetActive(true);
+            Weapons.transform.Find("Ak47_Top_Sprite").gameObject.SetActive(true);
             Ak47_Selected = true;
             //Alle anderen Deaktivieren
-            Weapons.transform.Find("M4_Top").gameObject.SetActive(false);
+            Weapons.transform.Find("M4_Top_Sprite").gameObject.SetActive(false);
             M4_Selected = false;
-            Weapons.transform.Find("Glock_18_Top").gameObject.SetActive(false);
+            Weapons.transform.Find("Glock_18_Top_Sprite").gameObject.SetActive(false);
             Glock_18_Selected = false;
-            Weapons.transform.Find("Sniper_Top").gameObject.SetActive(false);
+            Weapons.transform.Find("Sniper_Top_Sprite").gameObject.SetActive(false);
             Sniper_Selected = false;
         }else if(Slot1_Item == "Sniper"){
             //Aktive Waffe
-            Weapons.transform.Find("Sniper_Top").gameObject.SetActive(true);
+            Weapons.transform.Find("Sniper_Top_Sprite").gameObject.SetActive(true);
             Sniper_Selected = true;
             //Alle anderen Deaktivieren
-            Weapons.transform.Find("M4_Top").gameObject.SetActive(false);
+            Weapons.transform.Find("M4_Top_Sprite").gameObject.SetActive(false);
             M4_Selected = false;
-            Weapons.transform.Find("Ak47_Top").gameObject.SetActive(false);
+            Weapons.transform.Find("Ak47_Top_Sprite").gameObject.SetActive(false);
             Ak47_Selected = false;
-            Weapons.transform.Find("Glock_18_Top").gameObject.SetActive(false);
+            Weapons.transform.Find("Glock_18_Top_Sprite").gameObject.SetActive(false);
             Glock_18_Selected = false;
         }
         Slot1_Selected = true;
@@ -261,47 +269,47 @@ public class Inventory_Handler : MonoBehaviour
     public void Slot2_function(){
         if(Slot2_Item == "Glock_18"){
             //Aktive Waffe
-            Weapons.transform.Find("Glock_18_Top").gameObject.SetActive(true);
+            Weapons.transform.Find("Glock_18_Top_Sprite").gameObject.SetActive(true);
             Glock_18_Selected = true;
             //Alle anderen Deaktivieren
-            Weapons.transform.Find("M4_Top").gameObject.SetActive(false);
+            Weapons.transform.Find("M4_Top_Sprite").gameObject.SetActive(false);
             M4_Selected = false;
-            Weapons.transform.Find("Ak47_Top").gameObject.SetActive(false);
+            Weapons.transform.Find("Ak47_Top_Sprite").gameObject.SetActive(false);
             Ak47_Selected = false;
-            Weapons.transform.Find("Sniper_Top").gameObject.SetActive(false);
+            Weapons.transform.Find("Sniper_Top_Sprite").gameObject.SetActive(false);
             Sniper_Selected = false;
         }else if(Slot2_Item == "M4"){
             //Aktive Waffe
-            Weapons.transform.Find("M4_Top").gameObject.SetActive(true);
+            Weapons.transform.Find("M4_Top_Sprite").gameObject.SetActive(true);
             M4_Selected = true;
             //Alle anderen Deaktivieren
-            Weapons.transform.Find("Glock_18_Top").gameObject.SetActive(false);
+            Weapons.transform.Find("Glock_18_Top_Sprite").gameObject.SetActive(false);
             Glock_18_Selected = false;
-            Weapons.transform.Find("Ak47_Top").gameObject.SetActive(false);
+            Weapons.transform.Find("Ak47_Top_Sprite").gameObject.SetActive(false);
             Ak47_Selected = false;
-            Weapons.transform.Find("Sniper_Top").gameObject.SetActive(false);
+            Weapons.transform.Find("Sniper_Top_Sprite").gameObject.SetActive(false);
             Sniper_Selected = false;
         }else if(Slot2_Item == "Ak47"){
             //Aktive Waffe
-            Weapons.transform.Find("Ak47_Top").gameObject.SetActive(true);
+            Weapons.transform.Find("Ak47_Top_Sprite").gameObject.SetActive(true);
             Ak47_Selected = true;
             //Alle anderen Deaktivieren
-            Weapons.transform.Find("M4_Top").gameObject.SetActive(false);
+            Weapons.transform.Find("M4_Top_Sprite").gameObject.SetActive(false);
             M4_Selected = false;
-            Weapons.transform.Find("Glock_18_Top").gameObject.SetActive(false);
+            Weapons.transform.Find("Glock_18_Top_Sprite").gameObject.SetActive(false);
             Glock_18_Selected = false;
-            Weapons.transform.Find("Sniper_Top").gameObject.SetActive(false);
+            Weapons.transform.Find("Sniper_Top_Sprite").gameObject.SetActive(false);
             Sniper_Selected = false;
         }else if(Slot2_Item == "Sniper"){
             //Aktive Waffe
-            Weapons.transform.Find("Sniper_Top").gameObject.SetActive(true);
+            Weapons.transform.Find("Sniper_Top_Sprite").gameObject.SetActive(true);
             Sniper_Selected = true;
             //Alle anderen Deaktivieren
-            Weapons.transform.Find("M4_Top").gameObject.SetActive(false);
+            Weapons.transform.Find("M4_Top_Sprite").gameObject.SetActive(false);
             M4_Selected = false;
-            Weapons.transform.Find("Ak47_Top").gameObject.SetActive(false);
+            Weapons.transform.Find("Ak47_Top_Sprite").gameObject.SetActive(false);
             Ak47_Selected = false;
-            Weapons.transform.Find("Glock_18_Top").gameObject.SetActive(false);
+            Weapons.transform.Find("Glock_18_Top_Sprite").gameObject.SetActive(false);
             Glock_18_Selected = false;
         }
         Slot1_Selected = false;
@@ -311,47 +319,47 @@ public class Inventory_Handler : MonoBehaviour
     public void Slot3_function(){
         if(Slot3_Item == "Glock_18"){
             //Aktive Waffe
-            Weapons.transform.Find("Glock_18_Top").gameObject.SetActive(true);
+            Weapons.transform.Find("Glock_18_Top_Sprite").gameObject.SetActive(true);
             Glock_18_Selected = true;
             //Alle anderen Deaktivieren
-            Weapons.transform.Find("M4_Top").gameObject.SetActive(false);
+            Weapons.transform.Find("M4_Top_Sprite").gameObject.SetActive(false);
             M4_Selected = false;
-            Weapons.transform.Find("Ak47_Top").gameObject.SetActive(false);
+            Weapons.transform.Find("Ak47_Top_Sprite").gameObject.SetActive(false);
             Ak47_Selected = false;
-            Weapons.transform.Find("Sniper_Top").gameObject.SetActive(false);
+            Weapons.transform.Find("Sniper_Top_Sprite").gameObject.SetActive(false);
             Sniper_Selected = false;
         }else if(Slot3_Item == "M4"){
             //Aktive Waffe
-            Weapons.transform.Find("M4_Top").gameObject.SetActive(true);
+            Weapons.transform.Find("M4_Top_Sprite").gameObject.SetActive(true);
             M4_Selected = true;
             //Alle anderen Deaktivieren
-            Weapons.transform.Find("Glock_18_Top").gameObject.SetActive(false);
+            Weapons.transform.Find("Glock_18_Top_Sprite").gameObject.SetActive(false);
             Glock_18_Selected = false;
-            Weapons.transform.Find("Ak47_Top").gameObject.SetActive(false);
+            Weapons.transform.Find("Ak47_Top_Sprite").gameObject.SetActive(false);
             Ak47_Selected = false;
-            Weapons.transform.Find("Sniper_Top").gameObject.SetActive(false);
+            Weapons.transform.Find("Sniper_Top_Sprite").gameObject.SetActive(false);
             Sniper_Selected = false;
         }else if(Slot3_Item == "Ak47"){
             //Aktive Waffe
-            Weapons.transform.Find("Ak47_Top").gameObject.SetActive(true);
+            Weapons.transform.Find("Ak47_Top_Sprite").gameObject.SetActive(true);
             Ak47_Selected = true;
             //Alle anderen Deaktivieren
-            Weapons.transform.Find("M4_Top").gameObject.SetActive(false);
+            Weapons.transform.Find("M4_Top_Sprite").gameObject.SetActive(false);
             M4_Selected = false;
-            Weapons.transform.Find("Glock_18_Top").gameObject.SetActive(false);
+            Weapons.transform.Find("Glock_18_Top_Sprite").gameObject.SetActive(false);
             Glock_18_Selected = false;
-            Weapons.transform.Find("Sniper_Top").gameObject.SetActive(false);
+            Weapons.transform.Find("Sniper_Top_Sprite").gameObject.SetActive(false);
             Sniper_Selected = false;
         }else if(Slot3_Item == "Sniper"){
             //Aktive Waffe
-            Weapons.transform.Find("Sniper_Top").gameObject.SetActive(true);
+            Weapons.transform.Find("Sniper_Top_Sprite").gameObject.SetActive(true);
             Sniper_Selected = true;
             //Alle anderen Deaktivieren
-            Weapons.transform.Find("M4_Top").gameObject.SetActive(false);
+            Weapons.transform.Find("M4_Top_Sprite").gameObject.SetActive(false);
             M4_Selected = false;
-            Weapons.transform.Find("Ak47_Top").gameObject.SetActive(false);
+            Weapons.transform.Find("Ak47_Top_Sprite").gameObject.SetActive(false);
             Ak47_Selected = false;
-            Weapons.transform.Find("Glock_18_Top").gameObject.SetActive(false);
+            Weapons.transform.Find("Glock_18_Top_Sprite").gameObject.SetActive(false);
             Glock_18_Selected = false;
         }
         Slot1_Selected = false;

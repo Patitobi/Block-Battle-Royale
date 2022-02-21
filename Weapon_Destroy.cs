@@ -12,14 +12,16 @@ public class Weapon_Destroy : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void Update(){
     {
 
     }
-
-    private void OnCollisionEnter2D(Collision2D collision) { //Diese Funktion muss in die Inventory_Handler Datei umgeschrieben werden.
-     if(collision.gameObject.tag == "Player" && GameObject.Find("Player").GetComponent<Inventory_Handler>().lootcount < 3 ){ //Lootcount wird beim handy früher Aktuallisiert deswegen haben wir beim handy probleme
+    }
+    private void OnTriggerEnter2D(Collider2D collision) { 
+     if(collision.gameObject.tag == "Player" && GameObject.Find("Player").GetComponent<Inventory_Handler>().lootcount < 3 ){ 
          Destroy(this.gameObject);
      }
     }
+
+
 }

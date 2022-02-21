@@ -17,7 +17,7 @@ public class Heal_Destroy : MonoBehaviour
     
     }
 
-    private void OnCollisionEnter2D(Collision2D collision) {
+    private void OnTriggerEnter2D(Collider2D collision) {
      if(collision.gameObject.tag == "Player" && GameObject.Find("Player").GetComponent<Inventory_Handler>().Player_Heal < 5){
          Destroy(this.gameObject);
      }

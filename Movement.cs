@@ -14,12 +14,13 @@ public class Movement : MonoBehaviour
     private Vector3 prevPosition = Vector3.zero;
     public GameObject Weapons;
     public Vector3 moveVector;
-    
+    public GameObject World;
+    public Vector2 movement;    
 
     // Start is called before the first frame update
     void Start()
     {
-        Weapons = GameObject.Find("Weapons");
+        World = GameObject.Find("World");
         rb = GetComponent<Rigidbody2D>();
         joystick = GameObject.FindWithTag("Joystick").GetComponent<FixedJoystick>();
         animatior = gameObject.GetComponent<Animator>();
@@ -27,17 +28,14 @@ public class Movement : MonoBehaviour
 
     // Update is called once per frame
 
-    void Update()
-    {
-        
-        float horizontalInput = joystick.Horizontal;
-        float verticalInput = joystick.Vertical;
+    void FixedUpdate()
+    {   
+        float X = joystick.Horizontal;
+        float Y = joystick.Vertical;
 
-        Vector2 movementDirection = new Vector2(horizontalInput,verticalInput);
-        float inputMagnitude = Mathf.Clamp01(movementDirection.magnitude);
-        movementDirection.Normalize();
+        Vector2 movementDir = new Vector2(X,Y);
 
-        transform.Translate(movementDirection * speed * Time.deltaTime, Space.World);
+        transform.Translate(movementDir * speed * Time.fixedDeltaTime, Space.World);
 
         
         if(transform.position != lastpos){
@@ -47,11 +45,12 @@ public class Movement : MonoBehaviour
         }
         lastpos = transform.position;
 
-        moveVector = (Vector3.up * joystick.Vertical - Vector3.left * joystick.Horizontal);
-        if (joystick.Horizontal != 0 || joystick.Vertical != 0)
-        {
-            transform.rotation = Quaternion.LookRotation(Vector3.forward, moveVector);
+        if(X != 0 || Y != 0){
+        transform.up = new Vector2(X,Y);
         }
+    }
+
+    void Update(){
         Weapon_Follow_Player();
     }
 

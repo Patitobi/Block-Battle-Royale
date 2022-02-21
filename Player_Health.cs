@@ -8,12 +8,14 @@ public class Player_Health : MonoBehaviour
     public float health;
     public float Maxhealth;
     public Text Lebenstext;
+    private GameObject World;
     // Start is called before the first frame update
     void Start()
     {
         health = 200f;
         Lebenstext = GameObject.Find("Lebenstext").GetComponent<Text>();
         Maxhealth = 200f;
+        World = GameObject.Find("World");
     }
 
     // Update is called once per frame
@@ -28,7 +30,7 @@ public class Player_Health : MonoBehaviour
         }
     }
 
-    void OnCollisionEnter2D(Collision2D collision) {
+    void OnTriggerEnter2D(Collider2D collision) {
         if(collision.gameObject.tag == "Pistol-Bullet"){
             health -= 20;
         }
