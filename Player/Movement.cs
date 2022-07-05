@@ -1,0 +1,112 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.EventSystems;
+
+public class Movement : MonoBehaviour
+{
+
+    public float speed;
+    Rigidbody2D rb;
+    public FixedJoystick joystick1;
+    public FixedJoystick joystick2;
+    public Animator animatior;
+    Vector3 lastpos;
+    public float rotationSpeed;
+    private Vector3 prevPosition = Vector3.zero;
+    public GameObject Weapons;
+    public Vector3 moveVector;
+    public GameObject World;
+    public Vector2 movement; 
+    public bool tap;
+    public Touch touch;
+    public Shoot Shoot;
+    public GameObject Player;
+    public bool crouch;
+    public float RotateX, RotateY;
+    private bool steping;
+    public GameObject Footsteps;
+    public GameObject Footsteps2;
+    public int schleifenx;
+    public bool lootable;
+    public bool lootbutton;
+    public GameObject LOL;
+
+    void Awake(){
+        
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        World = GameObject.Find("World");
+        rb = GetComponent<Rigidbody2D>();
+        animatior = gameObject.GetComponent<Animator>();
+        Shoot = Player.GetComponent<Shoot>();
+        StartCoroutine(FootstepGen());
+    }
+
+    // Update is called once per frame
+
+    void FixedUpdate()
+    {   
+        Debug.Log(Vector2.Distance(this.transform.position, LOL.transform.position));
+        float X = joystick1.Horizontal;
+        float Y = joystick1.Vertical;
+
+        Vector2 movementDir = new Vector2(X,Y);
+
+        transform.Translate(movementDir * speed * Time.fixedDeltaTime, Space.World);
+
+        
+        if(transform.position != lastpos){
+            animatior.SetBool("isrunning", true);
+            steping = true;
+        }else{
+            animatior.SetBool("isrunning", false);
+            steping = false;
+        }
+        lastpos = transform.position;
+
+        //Rotation für rotationsstick setzen
+        if(joystick2.Horizontal != 0f || joystick2.Vertical != 0f){
+            RotateY = joystick2.Vertical;
+            RotateX = joystick2.Horizontal;
+        }else{
+            RotateX = 0f;
+            RotateY = 0f;
+        }
+
+        //in die richtung drehen in die man läuft falls roatations stick nicht bewegt wird
+        if(X != 0 || Y != 0 && new Vector2(RotateX,RotateY) == Vector2.zero){
+            transform.up = new Vector2(X,Y);
+        }
+
+        if(new Vector2(RotateX,RotateY) != Vector2.zero){
+            transform.up = new Vector2(RotateX,RotateY);
+        }
+    }
+
+    private IEnumerator FootstepGen(){
+        begin:
+        for( ;steping; ){
+            Instantiate(Footsteps,new Vector3(transform.position.x, transform.position.y, 121f), transform.rotation);
+            yield return new WaitForSeconds(.3f);
+            if(!steping) break;
+            Instantiate(Footsteps2, new Vector3(transform.position.x, transform.position.y, 121f), transform.rotation);
+            yield return new WaitForSeconds(.3f);
+        }
+        if(!steping){
+            yield return new WaitForSeconds(.3f);
+            goto begin;
+        }
+    }
+
+    public void enterlooting(){
+        lootbutton = true;
+    }
+
+    public void exitlooting(){
+        lootbutton = false;
+    }
+}
