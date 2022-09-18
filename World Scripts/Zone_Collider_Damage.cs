@@ -4,21 +4,18 @@ using UnityEngine;
 
 public class Zone_Collider_Damage : MonoBehaviour
 {
-    public GameObject World;
+    public GameObject Zone;
     public bool hi;
-    void Start(){
-        World = GameObject.Find("World");
-    }
 
     private void OnTriggerStay2D(Collider2D collision) {
-        if(collision.gameObject.tag == "Player" && World.GetComponent<Zone_Manager>().TakingDamage == false){
-            World.GetComponent<Zone_Manager>().InZone = true;
+        if(collision.gameObject.tag == "Player" && Zone.GetComponent<Zone_Manager>().TakingDamage == false){
+            Zone.GetComponent<Zone_Manager>().InZone = true;
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision) {
         if(collision.gameObject.tag == "Player"){
-            World.GetComponent<Zone_Manager>().InZone = false;
+            Zone.GetComponent<Zone_Manager>().InZone = false;
         }
     }
 }

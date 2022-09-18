@@ -33,6 +33,7 @@ public class Player_Health : MonoBehaviour
         //Spieler stirbt wenn er 0HP hat
         if(health <= 0){
             Destroy(this.gameObject);
+            Time.timeScale = 0;
         }
     }
 }

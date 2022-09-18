@@ -18,26 +18,28 @@ public class Zone_Manager : MonoBehaviour
     public bool TakingDamage;
     public float Zoneticktime = 1f;
     public bool InZone;
+    private void Start() {
+        StartCoroutine(ZoneDamage());
+    }
     private void Awake() {
         instance = this;
 
         Player = GameObject.Find("Player");
-        Zonetransform = transform.Find("Zone");
-        toptransform = transform.Find("zone_top");
-        lefttransform = transform.Find("zone_left");
-        righttransform = transform.Find("zone_right");
-        bottomtransform = transform.Find("zone_bottom");
+        Zonetransform = GameObject.Find("Zone").transform;
+        toptransform = GameObject.Find("zone_top").transform;
+        lefttransform = GameObject.Find("zone_left").transform;
+        righttransform = GameObject.Find("zone_right").transform;
+        bottomtransform = GameObject.Find("zone_bottom").transform;
 
-        SetZoneSize(new Vector3(0f,0f), new Vector3(1148f,1148f));
+        SetZoneSize(new Vector3(0f,0f, -9.199997f), new Vector3(1082.59f,1082.59f, 0f));
     }
 
     void Update(){
         ZonenSchrumf();
-        StartCoroutine(ZoneDamage());
     }
 
     void ZonenSchrumf(){
-        targetZoneSize = new Vector3(20,20);
+        targetZoneSize = new Vector3(20f,20f,0f);
 
         Vector3 sizechangeVector = (targetZoneSize - ZoneSize).normalized;
         Vector3 newZoneSize = ZoneSize + sizechangeVector * Time.deltaTime * ZonenSchrumpfGeschwindigkeit;
@@ -48,26 +50,26 @@ public class Zone_Manager : MonoBehaviour
         ZonePosition = position;
         ZoneSize = size;
 
-        transform.position = position;
+        //transform.position = position; vorerst unnötig da sich zone nicht bewegen muss
         Zonetransform.localScale = size;
 
         //Alle Zonen Teile werden auf Die Zonen Größe und Position zugeschnitten.
         toptransform.localScale = new Vector3(2000, 2000);
-        toptransform.localPosition = new Vector3(0, toptransform.localScale.y * 0.5f + size.y * 0.5f,100f);
+        toptransform.localPosition = new Vector3(0, toptransform.localScale.y * 0.5f + size.y * 0.5f,-9.199997f);
 
         bottomtransform.localScale = new Vector3(2000, 2000);
-        bottomtransform.localPosition = new Vector3(0, -toptransform.localScale.y * 0.5f - size.y * 0.5f,100f);
+        bottomtransform.localPosition = new Vector3(0, -toptransform.localScale.y * 0.5f - size.y * 0.5f,-9.199997f);
 
         lefttransform.localScale = new Vector3(2000, size.y);
-        lefttransform.localPosition = new Vector3(-lefttransform.localScale.x * .5f - size.x * .5f, 0f, 100f);
+        lefttransform.localPosition = new Vector3(-lefttransform.localScale.x * .5f - size.x * .5f, 0f, -9.199997f);
 
         righttransform.localScale = new Vector3(2000, size.y);
-        righttransform.localPosition = new Vector3(+lefttransform.localScale.x * .5f + size.x * .5f, 0f, 100f);
+        righttransform.localPosition = new Vector3(+lefttransform.localScale.x * .5f + size.x * .5f, 0f, -9.199997f);
     }
     IEnumerator ZoneDamage(){
-        while (TakingDamage == false && InZone == true){
+        while (true){
             TakingDamage = true;
-            Player.GetComponent<Player_Health>().health -= 2;
+            if(InZone == true) Player.GetComponent<Player_Health>().health -= 2;
             TakingDamage = false;
             yield return new WaitForSeconds(Zoneticktime);
         }

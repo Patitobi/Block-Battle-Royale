@@ -17,9 +17,7 @@ public class Weapon_Visibility : MonoBehaviour
         Weapons.transform.Find("Sniper_Top_Sprite").gameObject.SetActive(false);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
+    public void Checkvisibility(){
         Glock_18visibility();
         M4visibility();
         Ak47visibility();

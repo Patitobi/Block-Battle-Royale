@@ -6,7 +6,9 @@ public class Kiste_Check : MonoBehaviour
 {
     public bool Contact, open;
     
-    
+    private void Start(){
+        
+    }
     private void OnTriggerStay2D(Collider2D collision) {
         if(collision.tag == "Player" || collision.tag == "Bot"){
             try{
@@ -16,7 +18,13 @@ public class Kiste_Check : MonoBehaviour
             }
             Contact = true;
             try{
-                if(collision.gameObject.GetComponent<Movement>().lootbutton == true) open = true;
+                if(collision.gameObject.GetComponent<Movement>().lootbutton == true){
+                    //Zu Checken: isopen, Collision, lootbutton.
+                    if(transform.GetComponentInParent<Kiste>().isopen == false){
+                        //Öffne die kiste (führe die öffnungs funktion im Kisten Script selber aus)
+                        StartCoroutine(gameObject.GetComponentInParent<Kiste>().Open());
+                    }
+                }
             }catch{
                 if(collision.gameObject.GetComponent<Bot_Behavior>().lootbutton == true) open = true;
             }

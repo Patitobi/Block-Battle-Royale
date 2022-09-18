@@ -215,7 +215,7 @@ public class Bot_PlayerContact : MonoBehaviour
                 foreach(string i in Kistentags){
                     if(contact.collider.gameObject.tag == i){
                         try{
-                        if(contact.collider.gameObject.GetComponent<Kiste_Unten>().isopen == false){
+                        if(contact.collider.gameObject.GetComponent<Kiste>().isopen == false){
                             Bot.GetComponent<Bot_Behavior>().Currloot = contact.collider.gameObject;
                             Bot.GetComponent<Bot_Behavior>().looting = true;
                             break;
@@ -224,37 +224,6 @@ public class Bot_PlayerContact : MonoBehaviour
                             Bot.GetComponent<Bot_Behavior>().looting = false;
                         }
                         }catch{}
-                        try{
-                        if(contact.collider.gameObject.GetComponent<Kiste_Oben>().isopen == false){
-                            Bot.GetComponent<Bot_Behavior>().Currloot = contact.collider.gameObject;
-                            Bot.GetComponent<Bot_Behavior>().looting = true;
-                            break;
-                        }else{
-                            Bot.GetComponent<Bot_Behavior>().Currloot = null;
-                            Bot.GetComponent<Bot_Behavior>().looting = false;
-                        }
-                        }catch{}
-                        try{
-                        if(contact.collider.gameObject.GetComponent<Kiste_Rechts>().isopen == false){
-                            Bot.GetComponent<Bot_Behavior>().Currloot = contact.collider.gameObject;
-                            Bot.GetComponent<Bot_Behavior>().looting = true;
-                            break;
-                        }else{
-                            Bot.GetComponent<Bot_Behavior>().Currloot = null;
-                            Bot.GetComponent<Bot_Behavior>().looting = false;
-                        }
-                        }catch{}
-                        try{
-                        if(contact.collider.gameObject.GetComponent<Kiste_Links>().isopen == false){
-                            Bot.GetComponent<Bot_Behavior>().Currloot = contact.collider.gameObject;
-                            Bot.GetComponent<Bot_Behavior>().looting = true;
-                            break;
-                        }else{
-                            Bot.GetComponent<Bot_Behavior>().Currloot = null;
-                            Bot.GetComponent<Bot_Behavior>().looting = false;
-                        }
-                        }catch{}
-
                     }
                 }
                 //Häuser eingänge Registrieren 

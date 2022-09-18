@@ -1,0 +1,20 @@
+fileFormatVersion: 2
+guid: 8f69bebb39a6c0c4187a81b138eb3b1b
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - PlayerCheckobj: {instanceID: 0}
+  - Kisteobj: {instanceID: 0}
+  - Sniper: {fileID: 2403172526630473504, guid: e5503e0da66c036468939e35aeef5fe7, type: 3}
+  - M4: {fileID: 3112036206763823933, guid: 9d284eb45b903164197d02749028432a, type: 3}
+  - Glock: {fileID: 6841348654859439821, guid: 7e7a9a72ebe196f45b41d74338f4c6a7, type: 3}
+  - Ak47: {fileID: 4502265558717652197, guid: 8d3d902eea363a94392d05709f0e59d8, type: 3}
+  - Small_Ammo: {fileID: 3154768251023563847, guid: f596f69ba28460e448cc20542bc57bf5, type: 3}
+  - Mid_Ammo: {fileID: 2306298720679314304, guid: e5e091dba8bfb414f9cdd9de53b321b0, type: 3}
+  - Big_Ammo: {fileID: 8278854908504323994, guid: 549dba2cda8c24b4e99a28c5f7ea1dc8, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

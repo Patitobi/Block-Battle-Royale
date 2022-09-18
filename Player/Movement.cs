@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using TMPro;
 
 public class Movement : MonoBehaviour
 {
@@ -30,7 +31,8 @@ public class Movement : MonoBehaviour
     public int schleifenx;
     public bool lootable;
     public bool lootbutton;
-    public GameObject LOL;
+    public string Player_Name_Ingame;
+    public GameObject Name_Text;
 
     void Awake(){
         
@@ -39,6 +41,8 @@ public class Movement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Player_Name_Ingame = Menu_Handler.Player_Name;
+        Name_Text.GetComponent<TextMeshPro>().text = Player_Name_Ingame;
         World = GameObject.Find("World");
         rb = GetComponent<Rigidbody2D>();
         animatior = gameObject.GetComponent<Animator>();
@@ -47,10 +51,14 @@ public class Movement : MonoBehaviour
     }
 
     // Update is called once per frame
+    void Update(){
+        //Namen überm Kopf anzeigen
+        //Name_Text.GetComponent<Rigidbody2D>().rotation = 0;
+        //Name_Text.GetComponent<RectTransform>().position = new Vector2(this.gameObject.transform.position.x, this.gameObject.transform.position.y + 1.5f);
+    }
 
     void FixedUpdate()
     {   
-        Debug.Log(Vector2.Distance(this.transform.position, LOL.transform.position));
         float X = joystick1.Horizontal;
         float Y = joystick1.Vertical;
 

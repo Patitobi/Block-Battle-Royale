@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Linq;
 using UnityEngine;
+using TMPro;
 
 public class Bot_Behavior : MonoBehaviour
 {
@@ -46,20 +47,30 @@ public class Bot_Behavior : MonoBehaviour
     public bool inhouse;
     public float rightsum, leftsum, topsum, bottomsum; //summe der rechten, linken, oberen und unteren nerven distances
     public float[] sums = new float[4];
+    public float Player_Distance;
+    public bool spawn_steps;
+    public GameObject Player, Bot_Name_Text;
     void Awake() {
         BewegungsängerungsZeit = 15f;
         StartCoroutine(Bot_Random_Move());
     }
     void Start()
     {
+        Player = GameObject.Find("Player");
         World = GameObject.Find("World");
         animatior = gameObject.GetComponent<Animator>();        
         rb = GetComponent<Rigidbody2D>();
         StartCoroutine(FootstepGen());
+        StartCoroutine(CheckforPlayerDistance());
+        gameObject.GetComponent<Animator>().SetBool("isrunning", true);
     }
 
     void Update()
     {
+        //Name Bleibt überm Kopf
+        Bot_Name_Text.GetComponent<Rigidbody2D>().rotation = 0;
+        Bot_Name_Text.GetComponent<RectTransform>().position = new Vector2(this.gameObject.transform.position.x, this.gameObject.transform.position.y + 1.5f);
+
         //Setzt die summen in eine Array ein, damit sie später ausgewertet werden können
         sums[0] = rightsum;
         sums[1] = leftsum;
@@ -68,24 +79,22 @@ public class Bot_Behavior : MonoBehaviour
 
         //Animatior und Footsteps
         if(transform.position != lastpos){
-            animatior.SetBool("isrunning", true);
             steping = true;
         }else{
-            animatior.SetBool("isrunning", false);
             steping = false;
         }
         lastpos = transform.position;
 
-        Weapon_Follow_Player();
+        if(this.gameObject.GetComponent<Bot_Optimazation>().is_object_in_range == true){ //Nur wenn Objecte in der nähe sind.
+            //Schaut ob der bot gerade richtig random gerichtet ist
+            StartCoroutine(CheckforY());
 
-        //Schaut ob der bot gerade richtig random gerichtet ist
-        StartCoroutine(CheckforY());
+            //Bot schaut Player an mit 1 Sec delay
+            StartCoroutine(EnemyContactfunc());
 
-        //Bot schaut Player an mit 1 Sec delay
-        StartCoroutine(EnemyContactfunc());
-
-        //Bot lootet
-        StartCoroutine(Looting());
+            //Bot lootet
+            StartCoroutine(Looting());
+        }
 
         //Bot Orientiert sich zum Hause Eingang
         if(!inhouse) Entry_Orientation(); //boolean "inhouse" wird im Roof_Remove Script umgestellt sobald das Haus betreten wird.
@@ -108,7 +117,7 @@ public class Bot_Behavior : MonoBehaviour
     private IEnumerator CheckforY(){
         if(Y == 0.95f && EnemyContact == false && !looting && !waiting1 && !inhouse && EntryPoint == null || Y == -0.95f && EnemyContact == false && !looting && !waiting1 && !inhouse && EntryPoint == null){ //Macht Bot crazy wenn er weg läuft
             waiting1 = true;
-            yield return new WaitForSeconds(.5f);
+            yield return new WaitForSeconds(.2f);
             X = Random.Range(-1f,1f);
             Y = Random.Range(-1f,1f);
             waiting1 = false;
@@ -161,45 +170,45 @@ public class Bot_Behavior : MonoBehaviour
             X = 0;
             Y = 0;
 
-            //Analysiere die Werte von allen nerven und orientiere dich dann daran
-            float addX = 0;
-            float addY = 0;
-
-            //Läuft immer in die richtung wo die Summe am höchsten ist
-            if(sums.Max() == rightsum){
-                addX = 1f;
-                //yield return new WaitForSeconds(.5f);
-            }else if(sums.Max() == leftsum){
-                addX = -1f;
-                //yield return new WaitForSeconds(.5f);
-            }else if(sums.Max() == topsum){
-                addY = 1f;
-                //yield return new WaitForSeconds(.5f);
-            }else if(sums.Max() == bottomsum){
-                addY = -1f;
-                yield return new WaitForSeconds(.5f);
-            }
+            yield return new WaitForSeconds(.1f);
+            
             //IDEE
             //Loop einmal alle paar millisekunden durch alle nerven durch und setze punkte wo einziger stralen durch z.B. Türen durchgehen um dort hinzulaufen. 
 
-            X = addX;
-            Y = addY;
             Debug.Log("House Orientation");
         }
+    }
+
+    void Wandvoraugen(){
+        //Wenn der Bot gegen eine Wand läuft dann drehe seine richtung nach rechts um.
+        //IDEE 2: Bot dreht sich einfach von jeder wand weg die vor ihm ist wie oben erklärt.
+
     }
 
     private IEnumerator FootstepGen(){
         begin:
         while(steping){
-            Instantiate(Footsteps,new Vector3(transform.position.x, transform.position.y, 113f), transform.rotation);
-            yield return new WaitForSeconds(.3f);
-            if(!steping) break;
-            Instantiate(Footsteps2, new Vector3(transform.position.x, transform.position.y,113f), transform.rotation);
+            if(spawn_steps){ //Mache nur footsteps wenn der Spieler auch nah genug ist um sie in den nächsten 5-10 sekunden zu sehen
+                Instantiate(Footsteps,new Vector3(transform.position.x, transform.position.y, 113f), transform.rotation);
+                yield return new WaitForSeconds(.3f);
+                if(!steping) break;
+                Instantiate(Footsteps2, new Vector3(transform.position.x, transform.position.y,113f), transform.rotation);
+            }
             yield return new WaitForSeconds(.3f);
         }
         if(!steping){
             yield return new WaitForSeconds(.3f);
             goto begin;
+        }
+    }
+
+    public IEnumerator CheckforPlayerDistance(){
+        while(true){
+            Player_Distance = Vector2.Distance(new Vector2(Player.transform.position.x, Player.transform.position.y), new Vector2(this.gameObject.transform.position.x, this.gameObject.transform.position.y)); //misst wie weit der Bot vom Player weg ist um dann zu schauen ob Footsteps generiert werden müssen
+            if(Player_Distance < 29f){
+                spawn_steps = true;
+            }else spawn_steps = false;
+            yield return new WaitForSeconds(3f);
         }
     }
 
@@ -289,10 +298,12 @@ public class Bot_Behavior : MonoBehaviour
             //Laufe weg wenn low hp 
             if(Enemy != null && Bot.GetComponent<Bot_Health>().health <= 50 || Bot.GetComponent<Bot_Inventory>().lootcount == 0){
                 runaway = true;
-                yield return new WaitForSeconds(1f);
+                yield return new WaitForSeconds(.4f);
                 Y = 0.95f;
                 X = 0f;
                 rotationoffset = 90f;
+                //stop shooting
+                Shoot = false;
             }else{
                 runaway = false;
                 rotationoffset = 270f;
@@ -334,6 +345,7 @@ public class Bot_Behavior : MonoBehaviour
 
             if(EnemyContact == true && Enemy != null) movenormal = false;
             //Random Waffe raus hohlen und dann schießen.
+            if(!runaway){ //Nur wenn er nicht wegläuft schiessen sonst schießt er ins nichts
             Shoot = true;
             if(schleifeny <= 1) schleifeny++;
             if(schleifeny == 1){
@@ -347,12 +359,14 @@ public class Bot_Behavior : MonoBehaviour
                     Bot.GetComponent<Bot_Inventory>().Slot1_Selected = false;
                     Bot.GetComponent<Bot_Inventory>().Slot2_Selected = true;
                     Bot.GetComponent<Bot_Inventory>().Slot3_Selected = false;
-                }if(randomizerweapon == 3){
+                }else if(randomizerweapon == 3){
                     Bot.GetComponent<Bot_Inventory>().Slot1_Selected = false;
                     Bot.GetComponent<Bot_Inventory>().Slot2_Selected = false;
                     Bot.GetComponent<Bot_Inventory>().Slot3_Selected = true;
                 }
-
+                //Animator soll den bot in Waffen haltung versetzen
+                Bot.GetComponent<Animator>().SetBool("Weaponactive", true);
+            }
             }
         }else{
             if(!looting && EntryPoint == null){

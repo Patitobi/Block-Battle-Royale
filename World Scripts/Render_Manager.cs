@@ -17,19 +17,21 @@ public class Render_Manager : MonoBehaviour
         }else if(this.gameObject.tag == "Wege"){
             Renderdistance = Renderdistance * 8f;
         }else if(this.gameObject.tag == "Highrender"){
-            Renderdistance = Renderdistance * 10f;
+            Renderdistance = Renderdistance * 8f;
         }
         StartCoroutine(Rendercheck());
     }
 
     private IEnumerator Rendercheck(){
         while(true){
-            yield return new WaitForSeconds(0.1f);
-            if(Vector2.Distance(Player.transform.position, transform.position) > Renderdistance){
-                rend.enabled = false;
-            }else{
-                rend.enabled = true;
+            if(Time.timeScale == 1){ //Verhindert das Minimap Optimiert Gerendert wird. Sonst würde nur die umgebung des spielers auf der map angezeigtr werden
+                if(Vector2.Distance(Player.transform.position, transform.position) > Renderdistance){
+                    rend.enabled = false;
+                }else{
+                    rend.enabled = true;
+                }
             }
+            yield return new WaitForSeconds(4f);
         }
     }
 }
