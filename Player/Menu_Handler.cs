@@ -7,7 +7,8 @@ using System;
 
 public class Menu_Handler : MonoBehaviour
 {
-    public GameObject Player, Shop_Button, Play_Button, Friends_Button, Inv_Button, Coin_Counter, Player_Name_Button, Name_Input, BG1, BG2, BG3, BG4;
+    public GameObject Player, Shop_Button, Play_Button, Friends_Button, Inv_Button, Coin_Counter, Player_Name_Button, Name_Input, BG1, BG2, BG3, BG4, Logo, Settings_Button, Settings_BG, Settings_Menu;
+    public GameObject LobbyMusic, Settings_X;
     public Text Coin_Count, Player_Name_Text, Bot_Counter;
     public GameObject[] BGPoints;
     public int Coins; //Muss noch Automatisch gezählt werden wird aber vorerst auf 123 Gesetzt
@@ -115,6 +116,10 @@ public class Menu_Handler : MonoBehaviour
         Coin_Counter.SetActive(false);
         Player_Name_Button.SetActive(false);
         Player_Name_Text.gameObject.SetActive(false);
+        Friends_Button.gameObject.SetActive(false);
+        Inv_Button.gameObject.SetActive(false);
+        Settings_Button.gameObject.SetActive(false);
+        Logo.gameObject.SetActive(false);
 
         Name_Input.SetActive(true); //Input Field
     }
@@ -126,6 +131,10 @@ public class Menu_Handler : MonoBehaviour
         Coin_Counter.SetActive(true);
         Player_Name_Button.SetActive(true);
         Player_Name_Text.gameObject.SetActive(true);
+        Friends_Button.gameObject.SetActive(true);
+        Inv_Button.gameObject.SetActive(true);
+        Settings_Button.gameObject.SetActive(true);
+        Logo.gameObject.SetActive(true);
 
         Name_Input.SetActive(false); //Input Field
 
@@ -156,4 +165,43 @@ public class Menu_Handler : MonoBehaviour
         if(Menu_Bots != 0) Menu_Bots -= 1;
         Bot_Counter.text = Menu_Bots.ToString();
     }
+    public void Settings(){
+        Player.SetActive(false); //Deaktiviere das Ganze Menü und mache nur die Settings sichtbar
+        Shop_Button.SetActive(false);
+        Play_Button.SetActive(false);
+        Coin_Counter.SetActive(false);
+        Player_Name_Button.SetActive(false);
+        Player_Name_Text.gameObject.SetActive(false);
+        Friends_Button.gameObject.SetActive(false);
+        Inv_Button.gameObject.SetActive(false);
+        Logo.gameObject.SetActive(false);
+        Name_Input.SetActive(false);
+        Settings_Button.gameObject.SetActive(false);
+
+        Settings_Menu.gameObject.SetActive(true);
+    }
+
+    public void SettingsExit(){
+        Player.SetActive(true); //Deaktiviere das Ganze Menü und mache nur die Settings sichtbar
+        Shop_Button.SetActive(true);
+        Play_Button.SetActive(true);
+        Coin_Counter.SetActive(true);
+        Player_Name_Button.SetActive(true);
+        Player_Name_Text.gameObject.SetActive(true);
+        Friends_Button.gameObject.SetActive(true);
+        Inv_Button.gameObject.SetActive(true);
+        Logo.gameObject.SetActive(true);
+        Name_Input.SetActive(false);
+        Settings_Button.gameObject.SetActive(true);
+
+        Settings_Menu.gameObject.SetActive(false);
+    }
+
+    public void MusicSettingChanged(float newVolume){
+        //Auf die neue Lautstärke aktualisieren
+        LobbyMusic.GetComponent<AudioSource>().volume = newVolume;
+        //Music in Prozent im Menü anzeigen
+        
+    }
+
 }
