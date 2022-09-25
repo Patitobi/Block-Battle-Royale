@@ -6,7 +6,7 @@ using TMPro;
 
 public class Movement : MonoBehaviour
 {
-
+    //test
     public float speed;
     Rigidbody2D rb;
     public FixedJoystick joystick1;
