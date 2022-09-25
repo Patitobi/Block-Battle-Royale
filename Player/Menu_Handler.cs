@@ -16,7 +16,7 @@ public class Menu_Handler : MonoBehaviour
     public static int Menu_Bots = 0;
     public float CAMSPEED = 0.001f;
 
-    void Start(){
+    void Awake(){
         ChooseBG();
         StartCoroutine(PlayerSpin());
         StartCoroutine(BGMove());
@@ -87,7 +87,6 @@ public class Menu_Handler : MonoBehaviour
             }
             yield return new WaitForSeconds(3.5f);
         }
-        
     }
 
     public IEnumerator PlayerSpin(){

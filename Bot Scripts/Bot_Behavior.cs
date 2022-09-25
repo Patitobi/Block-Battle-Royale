@@ -72,10 +72,10 @@ public class Bot_Behavior : MonoBehaviour
         Bot_Name_Text.GetComponent<RectTransform>().position = new Vector2(this.gameObject.transform.position.x, this.gameObject.transform.position.y + 1.5f);
 
         //Setzt die summen in eine Array ein, damit sie später ausgewertet werden können
-        sums[0] = rightsum;
+        /*sums[0] = rightsum;
         sums[1] = leftsum;
         sums[2] = topsum;
-        sums[3] = bottomsum;
+        sums[3] = bottomsum;*/
 
         //Animatior und Footsteps
         if(transform.position != lastpos){
@@ -174,8 +174,6 @@ public class Bot_Behavior : MonoBehaviour
             
             //IDEE
             //Loop einmal alle paar millisekunden durch alle nerven durch und setze punkte wo einziger stralen durch z.B. Türen durchgehen um dort hinzulaufen. 
-
-            Debug.Log("House Orientation");
         }
     }
 

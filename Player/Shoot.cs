@@ -291,7 +291,17 @@ public class Shoot : MonoBehaviour
                 
                 //Einschuss Animation (Blut)
                 if(hitinfo.collider.gameObject.tag == "Player" || hitinfo.collider.gameObject.tag == "Bot"){
-                    Instantiate(Impactanimation, hitinfo.point, Quaternion.identity);
+                    Color impactobjectcolor = Color.red;
+                    GameObject animation = Instantiate(Impactanimation, hitinfo.point, Quaternion.identity);
+                    ParticleSystem.MainModule main = animation.GetComponent<ParticleSystem>().main;
+                    main.startColor = impactobjectcolor;
+                }else{ //Die Farbe des getroffenem Object wird genommen und eine alternative Inpact Animation wird mit der farbe des objects abgespielt 
+                    int randint = Random.Range(1,3);//Es wird Random eine Farbe zwischen Grau und Braun gewählt und als Animations Farbe genutzt
+                    if(randint == 1)impactobjectcolor = Color.gray; //Graue Farbe
+                    else ColorUtility.TryParseHtmlString("#985000", out impactobjectcolor); //Braune Farbe
+                    GameObject animation = Instantiate(Impactanimation, hitinfo.point, Quaternion.identity);
+                    ParticleSystem.MainModule main = animation.GetComponent<ParticleSystem>().main;
+                    main.startColor = impactobjectcolor;
                 }
                 lineRenderer.SetPosition(0, Feuerpunkt.transform.position);
                 lineRenderer.SetPosition(1, hitinfo.point);
@@ -340,7 +350,17 @@ public class Shoot : MonoBehaviour
                 
                     //Einschuss Animation (Blut)
                     if(hitinfo.collider.gameObject.tag == "Player" || hitinfo.collider.gameObject.tag == "Bot"){
-                        Instantiate(Impactanimation, hitinfo.point, Quaternion.identity);
+                        Color impactobjectcolor = Color.red;
+                        GameObject animation = Instantiate(Impactanimation, hitinfo.point, Quaternion.identity);
+                        ParticleSystem.MainModule main = animation.GetComponent<ParticleSystem>().main;
+                        main.startColor = impactobjectcolor;
+                    }else{ //Die Farbe des getroffenem Object wird genommen und eine alternative Inpact Animation wird mit der farbe des objects abgespielt 
+                        int randint = Random.Range(1,3);//Es wird Random eine Farbe zwischen Grau und Braun gewählt und als Animations Farbe genutzt
+                        if(randint == 1)impactobjectcolor = Color.gray; //Graue Farbe
+                        else ColorUtility.TryParseHtmlString("#985000", out impactobjectcolor); //Braune Farbe
+                        GameObject animation = Instantiate(Impactanimation, hitinfo.point, Quaternion.identity);
+                        ParticleSystem.MainModule main = animation.GetComponent<ParticleSystem>().main;
+                        main.startColor = impactobjectcolor;
                     }
                     lineRenderer.SetPosition(0, Feuerpunkt.transform.position);
                     lineRenderer.SetPosition(1, hitinfo.point);
@@ -390,7 +410,17 @@ public class Shoot : MonoBehaviour
                 
                     //Einschuss Animation (Blut)
                     if(hitinfo.collider.gameObject.tag == "Player" || hitinfo.collider.gameObject.tag == "Bot"){
-                        Instantiate(Impactanimation, hitinfo.point, Quaternion.identity);
+                        Color impactobjectcolor = Color.red;
+                        GameObject animation = Instantiate(Impactanimation, hitinfo.point, Quaternion.identity);
+                        ParticleSystem.MainModule main = animation.GetComponent<ParticleSystem>().main;
+                        main.startColor = impactobjectcolor;
+                    }else{ //Die Farbe des getroffenem Object wird genommen und eine alternative Inpact Animation wird mit der farbe des objects abgespielt 
+                        int randint = Random.Range(1,3);//Es wird Random eine Farbe zwischen Grau und Braun gewählt und als Animations Farbe genutzt
+                        if(randint == 1)impactobjectcolor = Color.gray; //Graue Farbe
+                        else ColorUtility.TryParseHtmlString("#985000", out impactobjectcolor); //Braune Farbe
+                        GameObject animation = Instantiate(Impactanimation, hitinfo.point, Quaternion.identity);
+                        ParticleSystem.MainModule main = animation.GetComponent<ParticleSystem>().main;
+                        main.startColor = impactobjectcolor;
                     }
                     lineRenderer.SetPosition(0, Feuerpunkt.transform.position);
                     lineRenderer.SetPosition(1, hitinfo.point);
@@ -438,7 +468,17 @@ public class Shoot : MonoBehaviour
                 
                 //Einschuss Animation (Blut)
                 if(hitinfo.collider.gameObject.tag == "Player" || hitinfo.collider.gameObject.tag == "Bot"){
-                    Instantiate(Impactanimation, hitinfo.point, Quaternion.identity);
+                    Color impactobjectcolor = Color.red;
+                    GameObject animation = Instantiate(Impactanimation, hitinfo.point, Quaternion.identity);
+                    ParticleSystem.MainModule main = animation.GetComponent<ParticleSystem>().main;
+                    main.startColor = impactobjectcolor;
+                }else{ //Die Farbe des getroffenem Object wird genommen und eine alternative Inpact Animation wird mit der farbe des objects abgespielt 
+                    int randint = Random.Range(1,3);//Es wird Random eine Farbe zwischen Grau und Braun gewählt und als Animations Farbe genutzt
+                    if(randint == 1)impactobjectcolor = Color.gray; //Graue Farbe
+                    else ColorUtility.TryParseHtmlString("#985000", out impactobjectcolor); //Braune Farbe
+                    GameObject animation = Instantiate(Impactanimation, hitinfo.point, Quaternion.identity);
+                    ParticleSystem.MainModule main = animation.GetComponent<ParticleSystem>().main;
+                    main.startColor = impactobjectcolor;
                 }
                 lineRenderer.SetPosition(0, Feuerpunkt.transform.position);
                 lineRenderer.SetPosition(1, hitinfo.point);
@@ -488,7 +528,17 @@ public class Shoot : MonoBehaviour
                 
                 //Einschuss Animation (Blut)
                 if(hitinfo.collider.gameObject.tag == "Player" || hitinfo.collider.gameObject.tag == "Bot"){
-                    Instantiate(Impactanimation, hitinfo.point, Quaternion.identity);
+                    Color impactobjectcolor = Color.red;
+                    GameObject animation = Instantiate(Impactanimation, hitinfo.point, Quaternion.identity);
+                    ParticleSystem.MainModule main = animation.GetComponent<ParticleSystem>().main;
+                    main.startColor = impactobjectcolor;
+                }else{ //Die Farbe des getroffenem Object wird genommen und eine alternative Inpact Animation wird mit der farbe des objects abgespielt 
+                    int randint = Random.Range(1,3);//Es wird Random eine Farbe zwischen Grau und Braun gewählt und als Animations Farbe genutzt
+                    if(randint == 1)impactobjectcolor = Color.gray; //Graue Farbe
+                    else ColorUtility.TryParseHtmlString("#985000", out impactobjectcolor); //Braune Farbe
+                    GameObject animation = Instantiate(Impactanimation, hitinfo.point, Quaternion.identity);
+                    ParticleSystem.MainModule main = animation.GetComponent<ParticleSystem>().main;
+                    main.startColor = impactobjectcolor;
                 }
                 lineRenderer.SetPosition(0, Feuerpunkt.transform.position);
                 lineRenderer.SetPosition(1, hitinfo.point);
@@ -537,7 +587,17 @@ public class Shoot : MonoBehaviour
                 
                     //Einschuss Animation (Blut)
                     if(hitinfo.collider.gameObject.tag == "Player" || hitinfo.collider.gameObject.tag == "Bot"){
-                        Instantiate(Impactanimation, hitinfo.point, Quaternion.identity);
+                        Color impactobjectcolor = Color.red;
+                        GameObject animation = Instantiate(Impactanimation, hitinfo.point, Quaternion.identity);
+                        ParticleSystem.MainModule main = animation.GetComponent<ParticleSystem>().main;
+                        main.startColor = impactobjectcolor;
+                    }else{ //Die Farbe des getroffenem Object wird genommen und eine alternative Inpact Animation wird mit der farbe des objects abgespielt 
+                        int randint = Random.Range(1,3);//Es wird Random eine Farbe zwischen Grau und Braun gewählt und als Animations Farbe genutzt
+                        if(randint == 1)impactobjectcolor = Color.gray; //Graue Farbe
+                        else ColorUtility.TryParseHtmlString("#985000", out impactobjectcolor); //Braune Farbe
+                        GameObject animation = Instantiate(Impactanimation, hitinfo.point, Quaternion.identity);
+                        ParticleSystem.MainModule main = animation.GetComponent<ParticleSystem>().main;
+                        main.startColor = impactobjectcolor;
                     }
                     lineRenderer.SetPosition(0, Feuerpunkt.transform.position);
                     lineRenderer.SetPosition(1, hitinfo.point);
@@ -587,7 +647,17 @@ public class Shoot : MonoBehaviour
                 
                     //Einschuss Animation (Blut)
                     if(hitinfo.collider.gameObject.tag == "Player" || hitinfo.collider.gameObject.tag == "Bot"){
-                        Instantiate(Impactanimation, hitinfo.point, Quaternion.identity);
+                        Color impactobjectcolor = Color.red;
+                        GameObject animation = Instantiate(Impactanimation, hitinfo.point, Quaternion.identity);
+                        ParticleSystem.MainModule main = animation.GetComponent<ParticleSystem>().main;
+                        main.startColor = impactobjectcolor;
+                    }else{ //Die Farbe des getroffenem Object wird genommen und eine alternative Inpact Animation wird mit der farbe des objects abgespielt 
+                        int randint = Random.Range(1,3);//Es wird Random eine Farbe zwischen Grau und Braun gewählt und als Animations Farbe genutzt
+                        if(randint == 1)impactobjectcolor = Color.gray; //Graue Farbe
+                        else ColorUtility.TryParseHtmlString("#985000", out impactobjectcolor); //Braune Farbe
+                        GameObject animation = Instantiate(Impactanimation, hitinfo.point, Quaternion.identity);
+                        ParticleSystem.MainModule main = animation.GetComponent<ParticleSystem>().main;
+                        main.startColor = impactobjectcolor;
                     }
                     lineRenderer.SetPosition(0, Feuerpunkt.transform.position);
                     lineRenderer.SetPosition(1, hitinfo.point);
@@ -635,7 +705,17 @@ public class Shoot : MonoBehaviour
                 
                 //Einschuss Animation (Blut)
                 if(hitinfo.collider.gameObject.tag == "Player" || hitinfo.collider.gameObject.tag == "Bot"){
-                    Instantiate(Impactanimation, hitinfo.point, Quaternion.identity);
+                    Color impactobjectcolor = Color.red;
+                    GameObject animation = Instantiate(Impactanimation, hitinfo.point, Quaternion.identity);
+                    ParticleSystem.MainModule main = animation.GetComponent<ParticleSystem>().main;
+                    main.startColor = impactobjectcolor;
+                }else{ //Die Farbe des getroffenem Object wird genommen und eine alternative Inpact Animation wird mit der farbe des objects abgespielt 
+                    int randint = Random.Range(1,3);//Es wird Random eine Farbe zwischen Grau und Braun gewählt und als Animations Farbe genutzt
+                    if(randint == 1)impactobjectcolor = Color.gray; //Graue Farbe
+                    else ColorUtility.TryParseHtmlString("#985000", out impactobjectcolor); //Braune Farbe
+                    GameObject animation = Instantiate(Impactanimation, hitinfo.point, Quaternion.identity);
+                    ParticleSystem.MainModule main = animation.GetComponent<ParticleSystem>().main;
+                    main.startColor = impactobjectcolor;
                 }
                 lineRenderer.SetPosition(0, Feuerpunkt.transform.position);
                 lineRenderer.SetPosition(1, hitinfo.point);

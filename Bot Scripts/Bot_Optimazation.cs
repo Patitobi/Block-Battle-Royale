@@ -17,13 +17,7 @@ public class Bot_Optimazation : MonoBehaviour
 
     void Start(){
         Player = GameObject.Find("Player");
-        //Setze alle Bots auf die Liste (Außer sich selber). Der Spieler wird nicht in die Liste aufgenommen sondern einzeld bearbeitet.
-        foreach(GameObject i in GameObject.FindGameObjectsWithTag("Bot")){
-            if(i.Equals(this.gameObject)){
-                continue;
-            }
-            enemy_bots.Add(i);
-        }
+        StartCoroutine(Getallbots());
         //Alle Kisten in eine Liste packen.
         Kisten_Unten = GameObject.FindGameObjectsWithTag("Kiste_Unten");
         Kisten_Oben = GameObject.FindGameObjectsWithTag("Kiste_Oben");
@@ -34,15 +28,24 @@ public class Bot_Optimazation : MonoBehaviour
         StartCoroutine(RegisterItems());
         StartCoroutine(Check());        
     }
+    private IEnumerator Getallbots(){
+        yield return new WaitForSeconds(5f);
+        //Setze alle Bots auf die Liste (Außer sich selber). Der Spieler wird nicht in die Liste aufgenommen sondern einzeld bearbeitet.
+        foreach(GameObject i in GameObject.FindGameObjectsWithTag("Bot")){
+            if(i.Equals(this.gameObject)){
+                continue;
+            }
+            enemy_bots.Add(i);
+        }
+    }
 
     private IEnumerator Check(){
         while(true){
-            yield return new WaitForSeconds(2.5f);
             //Prüfe alle Bots auf der Liste auf die entfernung um dann das Player contact script an oder aus zu schalten.
             //Bots
             foreach(GameObject bot in enemy_bots){
                 if(bot != null){
-                    if(Vector2.Distance(bot.transform.position, this.gameObject.transform.position) < 50f){
+                    if(Vector2.Distance(bot.transform.position, this.gameObject.transform.position) < 30f){
                         is_object_in_range = true;
                         goto end;
                     }else{
@@ -117,11 +120,12 @@ public class Bot_Optimazation : MonoBehaviour
             }else{
                 Playercheck.GetComponent<Bot_PlayerContact>().enabled = false;
             }
+            yield return new WaitForSeconds(2.5f);
         }
     }
 
     private IEnumerator RegisterItems(){
-        //Wird alle 10 Sekunden ausgeführt und registriert alle Items in eine Liste.
+        //Wird alle 15 Sekunden ausgeführt und registriert alle Items in eine Liste.
         //Alle Glocks
         foreach(GameObject item in GameObject.FindGameObjectsWithTag("Glock_18")){
             Items.Add(item);

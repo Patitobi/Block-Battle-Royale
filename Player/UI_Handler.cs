@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
+using UnityEngine.SceneManagement;
 
 public class UI_Handler : MonoBehaviour
 {
     [SerializeField] GameObject BigMap;
     [SerializeField] GameObject X_Button;
     [SerializeField] GameObject MinimapCam;
+    [SerializeField] GameObject Home_Button;
     private GameObject[] AllrenderableGameObjects;
 
     public void Start(){
@@ -25,6 +27,7 @@ public class UI_Handler : MonoBehaviour
         MinimapCam.SetActive(true);
         BigMap.SetActive(true);
         X_Button.SetActive(true);
+        Home_Button.SetActive(true);
 
         Time.timeScale = 0; //Pausiere das Spiel
     }
@@ -33,6 +36,7 @@ public class UI_Handler : MonoBehaviour
         //Map + X Button Entfernen
         BigMap.SetActive(false);
         X_Button.SetActive(false);
+        Home_Button.SetActive(false);
         //Cam Aus
         MinimapCam.SetActive(false);
         //Spiel geht weiter
@@ -41,5 +45,10 @@ public class UI_Handler : MonoBehaviour
 
     public IEnumerator Wait(){
         yield return new WaitForSeconds(.2f);
+    }
+
+    public void BacktoHome(){
+        Time.timeScale = 1;
+        SceneManager.LoadScene(sceneName:"Title_Menu");
     }
 }
