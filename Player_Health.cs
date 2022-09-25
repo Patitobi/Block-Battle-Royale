@@ -8,29 +8,32 @@ public class Player_Health : MonoBehaviour
     public float health;
     public float Maxhealth;
     public Text Lebenstext;
+    private GameObject World;
+    public GameObject Healthbar;
     // Start is called before the first frame update
     void Start()
     {
         health = 200f;
         Lebenstext = GameObject.Find("Lebenstext").GetComponent<Text>();
         Maxhealth = 200f;
+        World = GameObject.Find("World");
     }
 
     // Update is called once per frame
     void Update()
     {
         Lebenstext.text = health.ToString() + "%";
-        GameObject.Find("Health_Bar").GetComponent<Image>().fillAmount = health / Maxhealth;
+        Healthbar.GetComponent<Image>().fillAmount = health / Maxhealth;
         if(health <= 20){
-            GameObject.Find("Health_Bar").GetComponent<Image>().color = Color.red;
+            Healthbar.GetComponent<Image>().color = Color.red;
         }else{
-            GameObject.Find("Health_Bar").GetComponent<Image>().color = Color.green;
+            Healthbar.GetComponent<Image>().color = Color.green;
         }
-    }
 
-    void OnCollisionEnter2D(Collision2D collision) {
-        if(collision.gameObject.tag == "Pistol-Bullet"){
-            health -= 20;
+        //Spieler stirbt wenn er 0HP hat
+        if(health <= 0){
+            Destroy(this.gameObject);
+            Time.timeScale = 0;
         }
     }
 }

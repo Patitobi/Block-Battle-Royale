@@ -4,22 +4,24 @@ using UnityEngine;
 
 public class Weapon_Destroy : MonoBehaviour
 {
-    public GameObject player;
+    public GameObject player, PickedUp;
+    private Inventory_Handler inv_handler;
     // Start is called before the first frame update
     void Start()
     {
-        player = GameObject.Find("Player");
+        player = GameObject.Find("Player"); 
+        player.GetComponent<Inventory_Handler>();
     }
 
     // Update is called once per frame
-    void Update()
-    {
+    void Update(){
     
     }
-
-    private void OnCollisionEnter2D(Collision2D collision) { //Diese Funktion muss in die Inventory_Handler Datei umgeschrieben werden.
-     if(collision.gameObject.tag == "Player" && GameObject.Find("Player").GetComponent<Inventory_Handler>().lootcount < 3 ){ //Lootcount wird beim handy früher Aktuallisiert deswegen haben wir beim handy probleme
-         Destroy(this.gameObject);
-     }
+    private void OnTriggerEnter2D(Collider2D collision){
+        if(collision.gameObject.tag == "Player" && collision.GetComponent<Inventory_Handler>().lootcount < 3 || collision.gameObject.tag == "Bot" && collision.GetComponent<Bot_Inventory>().lootcount < 3){
+            Destroy(this.gameObject);
+        }
     }
+
+
 }
