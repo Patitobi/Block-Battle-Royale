@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using TMPro;
+using UnityEngine.Rendering.Universal;
 
 public class Movement : MonoBehaviour
 {
@@ -32,9 +33,15 @@ public class Movement : MonoBehaviour
     public bool lootbutton;
     public string Player_Name_Ingame;
     public GameObject Name_Text;
+    public GameObject PostProcessingVolume;
 
     void Awake(){
-        
+        //Performance Settings from Menu
+        if(Menu_Handler.performancemode == false){
+            //-Low Performance settings-
+            //Disable Post Processing
+            PostProcessingVolume.SetActive(false);
+        }
     }
 
     // Start is called before the first frame update

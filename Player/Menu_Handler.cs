@@ -15,6 +15,8 @@ public class Menu_Handler : MonoBehaviour
     public static string Player_Name = "Player";
     public static int Menu_Bots = 0;
     public float CAMSPEED = 0.001f;
+    public float Playerspinspeed;
+    public static bool performancemode;
 
     void Awake(){
         ChooseBG();
@@ -91,9 +93,13 @@ public class Menu_Handler : MonoBehaviour
 
     public IEnumerator PlayerSpin(){
         while(true){
-            Player.GetComponent<Rigidbody2D>().rotation -= .1f;
+            Player.GetComponent<Rigidbody2D>().rotation += Playerspinspeed * Time.deltaTime;
             yield return new WaitForEndOfFrame();
         }
+    }
+
+    public void performanceswitch(bool mode){
+        performancemode = mode;  
     }
 
     public IEnumerator BGMove(){
@@ -101,7 +107,7 @@ public class Menu_Handler : MonoBehaviour
             int rand = UnityEngine.Random.Range(0,4); //Suche einen der 4 Punkte zum Moven aus
             Vector2 nextcampos = BGPoints[rand].transform.position;
             while(new Vector2(transform.position.x, transform.position.y) != new Vector2(BGPoints[rand].transform.position.x, BGPoints[rand].transform.position.y)){
-                transform.position = Vector2.MoveTowards(transform.position, BGPoints[rand].transform.position, CAMSPEED);
+                transform.position = Vector2.MoveTowards(transform.position, BGPoints[rand].transform.position, CAMSPEED * Time.deltaTime);
                 yield return new WaitForEndOfFrame();
             }
             yield return new WaitForEndOfFrame();

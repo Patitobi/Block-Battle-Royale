@@ -50,9 +50,17 @@ public class Bot_Behavior : MonoBehaviour
     public float Player_Distance;
     public bool spawn_steps;
     public GameObject Player, Bot_Name_Text;
+    private Bot_Optimazation bot_optimazation;
+    private Rigidbody2D Bot_Name_Text_rb;
+    private RectTransform Bot_Name_Text_transform;
+    private Bot_Shoot bot_shoot;
     void Awake() {
         BewegungsängerungsZeit = 15f;
         StartCoroutine(Bot_Random_Move());
+        bot_optimazation = this.gameObject.GetComponent<Bot_Optimazation>();
+        Bot_Name_Text_rb = Bot_Name_Text.GetComponent<Rigidbody2D>();
+        Bot_Name_Text_transform = Bot_Name_Text.GetComponent<RectTransform>();
+        bot_shoot = Bot.GetComponent<Bot_Shoot>();
     }
     void Start()
     {
@@ -68,8 +76,8 @@ public class Bot_Behavior : MonoBehaviour
     void Update()
     {
         //Name Bleibt überm Kopf
-        Bot_Name_Text.GetComponent<Rigidbody2D>().rotation = 0;
-        Bot_Name_Text.GetComponent<RectTransform>().position = new Vector2(this.gameObject.transform.position.x, this.gameObject.transform.position.y + 1.5f);
+        Bot_Name_Text_rb.rotation = 0;
+        Bot_Name_Text_transform.position = new Vector2(this.gameObject.transform.position.x, this.gameObject.transform.position.y + 1.5f);
 
         //Setzt die summen in eine Array ein, damit sie später ausgewertet werden können
         /*sums[0] = rightsum;
@@ -85,7 +93,7 @@ public class Bot_Behavior : MonoBehaviour
         }
         lastpos = transform.position;
 
-        if(this.gameObject.GetComponent<Bot_Optimazation>().is_object_in_range == true){ //Nur wenn Objecte in der nähe sind.
+        if(bot_optimazation.is_object_in_range == true){ //Nur wenn Objecte in der nähe sind.
             //Schaut ob der bot gerade richtig random gerichtet ist
             StartCoroutine(CheckforY());
 
@@ -344,7 +352,7 @@ public class Bot_Behavior : MonoBehaviour
             if(EnemyContact == true && Enemy != null) movenormal = false;
             //Random Waffe raus hohlen und dann schießen.
             if(!runaway){ //Nur wenn er nicht wegläuft schiessen sonst schießt er ins nichts
-            Shoot = true;
+            bot_shoot.Shoot(); //Schießen
             if(schleifeny <= 1) schleifeny++;
             if(schleifeny == 1){
                 randomizerweaponmax = Bot.GetComponent<Bot_Inventory>().lootcount;
