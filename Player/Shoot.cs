@@ -40,7 +40,7 @@ public class Shoot : MonoBehaviour
      IEnumerator shoot(){
         if(Inv.Slot1_Selected == true){
         //Glock-18
-        if(GameObject.Find("Player").GetComponent<Inventory_Handler>().Glock_18_Selected == true && isshooting == false && Inv.slot1_mag_ammo > 0){
+        if(Inv.Glock_18_Selected == true && isshooting == false && Inv.slot1_mag_ammo > 0){
             isshooting = true;
             //Raycast schuss
             RaycastHit2D hitinfo = Physics2D.Raycast(Feuerpunkt.transform.position, Feuerpunkt.transform.up, 50f, layerMask); //Glock schießt 50f weit
@@ -81,7 +81,7 @@ public class Shoot : MonoBehaviour
             isshooting = false;
         }
         //Reload Glock-18
-        if(Inv.slot1_mag_ammo == 0 && inreload == false && Inv.small_ammo > 0 && GameObject.Find("Player").GetComponent<Inventory_Handler>().Glock_18_Selected == true && isshooting == false){
+        if(Inv.slot1_mag_ammo == 0 && inreload == false && Inv.small_ammo > 0 && Inv.Glock_18_Selected == true && isshooting == false){
             inreload = true;
             Inv.small_ammo -= 12;
             if(Inv.small_ammo < 0){
@@ -98,7 +98,7 @@ public class Shoot : MonoBehaviour
         }
         
         //Für Automatische Gewähre. (M4)
-        if(GameObject.Find("Player").GetComponent<Inventory_Handler>().M4_Selected == true && isshooting == false && Inv.slot1_mag_ammo > 0){
+        if(Inv.M4_Selected == true && isshooting == false && Inv.slot1_mag_ammo > 0){
             isshooting = true;
             for( ; Inv.slot1_mag_ammo != 0 ; Inv.slot1_mag_ammo--){
                 if(shootbttn == false) goto ende;
@@ -141,7 +141,7 @@ public class Shoot : MonoBehaviour
             isshooting = false;
         }
         //Reload M4
-        if(Inv.slot1_mag_ammo == 0 && inreload == false && Inv.mid_ammo > 0 && GameObject.Find("Player").GetComponent<Inventory_Handler>().M4_Selected == true && isshooting == false){
+        if(Inv.slot1_mag_ammo == 0 && inreload == false && Inv.mid_ammo > 0 && Inv.M4_Selected == true && isshooting == false){
             inreload = true;
             Inv.mid_ammo -= 25;
             if(Inv.mid_ammo < 0){
@@ -158,7 +158,7 @@ public class Shoot : MonoBehaviour
         }
 
         //Für Automatische Gewähre. (Ak47)
-        if(GameObject.Find("Player").GetComponent<Inventory_Handler>().Ak47_Selected == true && isshooting == false && Inv.slot1_mag_ammo > 0){
+        if(Inv.Ak47_Selected == true && isshooting == false && Inv.slot1_mag_ammo > 0){
             isshooting = true;
             for( ; Inv.slot1_mag_ammo != 0 ; Inv.slot1_mag_ammo--){
                 if(shootbttn == false) goto ende;
@@ -201,7 +201,7 @@ public class Shoot : MonoBehaviour
             isshooting = false;
         }
         //Reload Ak47
-        if(Inv.slot1_mag_ammo == 0 && inreload == false && Inv.mid_ammo > 0 && GameObject.Find("Player").GetComponent<Inventory_Handler>().Ak47_Selected == true && isshooting == false){
+        if(Inv.slot1_mag_ammo == 0 && inreload == false && Inv.mid_ammo > 0 && Inv.Ak47_Selected == true && isshooting == false){
             inreload = true;
             Inv.mid_ammo -= 25;
             if(Inv.mid_ammo < 0){
@@ -218,7 +218,7 @@ public class Shoot : MonoBehaviour
         }
 
         //Sniper
-        if(GameObject.Find("Player").GetComponent<Inventory_Handler>().Sniper_Selected == true && isshooting == false && Inv.slot1_mag_ammo > 0){
+        if(Inv.Sniper_Selected == true && isshooting == false && Inv.slot1_mag_ammo > 0){
             isshooting = true;
             //Raycast schuss
             RaycastHit2D hitinfo = Physics2D.Raycast(Feuerpunkt.transform.position, Feuerpunkt.transform.up, 150f); //Glock schießt 50f weit
@@ -259,7 +259,7 @@ public class Shoot : MonoBehaviour
         }
 
         //Reload Sniper
-        if(Inv.slot1_mag_ammo == 0 && inreload == false && Inv.big_ammo > 0 && GameObject.Find("Player").GetComponent<Inventory_Handler>().Sniper_Selected == true && isshooting == false){
+        if(Inv.slot1_mag_ammo == 0 && inreload == false && Inv.big_ammo > 0 && Inv.Sniper_Selected == true && isshooting == false){
             inreload = true;
             Inv.big_ammo -= 5;
             if(Inv.big_ammo < 0){
@@ -278,7 +278,7 @@ public class Shoot : MonoBehaviour
 
     if(Inv.Slot2_Selected == true){
          //Glock-18
-        if(GameObject.Find("Player").GetComponent<Inventory_Handler>().Glock_18_Selected == true && isshooting == false && Inv.slot2_mag_ammo > 0){
+        if(Inv.Glock_18_Selected == true && isshooting == false && Inv.slot2_mag_ammo > 0){
             isshooting = true;
             //Raycast schuss
             RaycastHit2D hitinfo = Physics2D.Raycast(Feuerpunkt.transform.position, Feuerpunkt.transform.up, 50f, layerMask); //Glock schießt 50f weit
@@ -318,7 +318,7 @@ public class Shoot : MonoBehaviour
             isshooting = false;
         }
         //Reload Glock-18
-        if(Inv.slot2_mag_ammo == 0 && inreload == false && Inv.small_ammo > 0 && GameObject.Find("Player").GetComponent<Inventory_Handler>().Glock_18_Selected == true && isshooting == false){
+        if(Inv.slot2_mag_ammo == 0 && inreload == false && Inv.small_ammo > 0 && Inv.Glock_18_Selected == true && isshooting == false){
             inreload = true;
             Inv.small_ammo -= 12;
             if(Inv.small_ammo < 0){
@@ -335,7 +335,7 @@ public class Shoot : MonoBehaviour
         }
         
         //Für Automatische Gewähre. (M4)
-        if(GameObject.Find("Player").GetComponent<Inventory_Handler>().M4_Selected == true && isshooting == false && Inv.slot2_mag_ammo > 0){
+        if(Inv.M4_Selected == true && isshooting == false && Inv.slot2_mag_ammo > 0){
             isshooting = true;
             for( ; Inv.slot2_mag_ammo != 0 ; Inv.slot2_mag_ammo--){
                 if(shootbttn == false) goto ende;
@@ -378,7 +378,7 @@ public class Shoot : MonoBehaviour
             isshooting = false;
         }
         //Reload M4
-        if(Inv.slot2_mag_ammo == 0 && inreload == false && Inv.mid_ammo > 0 && GameObject.Find("Player").GetComponent<Inventory_Handler>().M4_Selected == true && isshooting == false){
+        if(Inv.slot2_mag_ammo == 0 && inreload == false && Inv.mid_ammo > 0 && Inv.M4_Selected == true && isshooting == false){
             inreload = true;
             Inv.mid_ammo -= 25;
             if(Inv.mid_ammo < 0){
@@ -395,7 +395,7 @@ public class Shoot : MonoBehaviour
         }
 
         //Für Automatische Gewähre. (Ak47)
-        if(GameObject.Find("Player").GetComponent<Inventory_Handler>().Ak47_Selected == true && isshooting == false && Inv.slot2_mag_ammo > 0){
+        if(Inv.Ak47_Selected == true && isshooting == false && Inv.slot2_mag_ammo > 0){
             isshooting = true;
             for( ; Inv.slot2_mag_ammo != 0 ; Inv.slot2_mag_ammo--){
                 if(shootbttn == false) goto ende;
@@ -438,7 +438,7 @@ public class Shoot : MonoBehaviour
             isshooting = false;
         }
         //Reload Ak47
-        if(Inv.slot2_mag_ammo == 0 && inreload == false && Inv.mid_ammo > 0 && GameObject.Find("Player").GetComponent<Inventory_Handler>().Ak47_Selected == true && isshooting == false){
+        if(Inv.slot2_mag_ammo == 0 && inreload == false && Inv.mid_ammo > 0 && Inv.Ak47_Selected == true && isshooting == false){
             inreload = true;
             Inv.mid_ammo -= 25;
             if(Inv.mid_ammo < 0){
@@ -455,7 +455,7 @@ public class Shoot : MonoBehaviour
         }
 
         //Sniper
-        if(GameObject.Find("Player").GetComponent<Inventory_Handler>().Sniper_Selected == true && isshooting == false && Inv.slot2_mag_ammo > 0){
+        if(Inv.Sniper_Selected == true && isshooting == false && Inv.slot2_mag_ammo > 0){
             isshooting = true;
             //Raycast schuss
             RaycastHit2D hitinfo = Physics2D.Raycast(Feuerpunkt.transform.position, Feuerpunkt.transform.up, 150f); //Glock schießt 50f weit
@@ -496,7 +496,7 @@ public class Shoot : MonoBehaviour
         }
 
         //Reload Sniper
-        if(Inv.slot2_mag_ammo == 0 && inreload == false && Inv.big_ammo > 0 && GameObject.Find("Player").GetComponent<Inventory_Handler>().Sniper_Selected == true && isshooting == false){
+        if(Inv.slot2_mag_ammo == 0 && inreload == false && Inv.big_ammo > 0 && Inv.Sniper_Selected == true && isshooting == false){
             inreload = true;
             Inv.big_ammo -= 5;
             if(Inv.big_ammo < 0){
@@ -515,7 +515,7 @@ public class Shoot : MonoBehaviour
 
     if(Inv.Slot3_Selected == true){
          //Glock-18
-        if(GameObject.Find("Player").GetComponent<Inventory_Handler>().Glock_18_Selected == true && isshooting == false && Inv.slot3_mag_ammo > 0){
+        if(Inv.Glock_18_Selected == true && isshooting == false && Inv.slot3_mag_ammo > 0){
             isshooting = true;
             //Raycast schuss
             RaycastHit2D hitinfo = Physics2D.Raycast(Feuerpunkt.transform.position, Feuerpunkt.transform.up, 50f, layerMask); //Glock schießt 50f weit
@@ -555,7 +555,7 @@ public class Shoot : MonoBehaviour
             isshooting = false;
         }
         //Reload Glock-18
-        if(Inv.slot3_mag_ammo == 0 && inreload == false && Inv.small_ammo > 0 && GameObject.Find("Player").GetComponent<Inventory_Handler>().Glock_18_Selected == true && isshooting == false){
+        if(Inv.slot3_mag_ammo == 0 && inreload == false && Inv.small_ammo > 0 && Inv.Glock_18_Selected == true && isshooting == false){
             inreload = true;
             Inv.small_ammo -= 12;
             if(Inv.small_ammo < 0){
@@ -572,7 +572,7 @@ public class Shoot : MonoBehaviour
         }
         
         //Für Automatische Gewähre. (M4)
-        if(GameObject.Find("Player").GetComponent<Inventory_Handler>().M4_Selected == true && isshooting == false && Inv.slot3_mag_ammo > 0){
+        if(Inv.M4_Selected == true && isshooting == false && Inv.slot3_mag_ammo > 0){
             isshooting = true;
             for( ; Inv.slot3_mag_ammo != 0 ; Inv.slot3_mag_ammo--){
                 if(shootbttn == false) goto ende;
@@ -615,7 +615,7 @@ public class Shoot : MonoBehaviour
             isshooting = false;
         }
         //Reload M4
-        if(Inv.slot3_mag_ammo == 0 && inreload == false && Inv.mid_ammo > 0 && GameObject.Find("Player").GetComponent<Inventory_Handler>().M4_Selected == true && isshooting == false){
+        if(Inv.slot3_mag_ammo == 0 && inreload == false && Inv.mid_ammo > 0 && Inv.M4_Selected == true && isshooting == false){
             inreload = true;
             Inv.mid_ammo -= 25;
             if(Inv.mid_ammo < 0){
@@ -632,7 +632,7 @@ public class Shoot : MonoBehaviour
         }
 
         //Für Automatische Gewähre. (Ak47)
-        if(GameObject.Find("Player").GetComponent<Inventory_Handler>().Ak47_Selected == true && isshooting == false && Inv.slot3_mag_ammo > 0){
+        if(Inv.Ak47_Selected == true && isshooting == false && Inv.slot3_mag_ammo > 0){
             isshooting = true;
             for( ; Inv.slot3_mag_ammo != 0 ; Inv.slot3_mag_ammo--){
                 if(shootbttn == false) goto ende;
@@ -675,7 +675,7 @@ public class Shoot : MonoBehaviour
             isshooting = false;
         }
         //Reload Ak47
-        if(Inv.slot3_mag_ammo == 0 && inreload == false && Inv.mid_ammo > 0 && GameObject.Find("Player").GetComponent<Inventory_Handler>().Ak47_Selected == true && isshooting == false){
+        if(Inv.slot3_mag_ammo == 0 && inreload == false && Inv.mid_ammo > 0 && Inv.Ak47_Selected == true && isshooting == false){
             inreload = true;
             Inv.mid_ammo -= 25;
             if(Inv.mid_ammo < 0){
@@ -692,7 +692,7 @@ public class Shoot : MonoBehaviour
         }
 
         //Sniper
-        if(GameObject.Find("Player").GetComponent<Inventory_Handler>().Sniper_Selected == true && isshooting == false && Inv.slot3_mag_ammo > 0){
+        if(Inv.Sniper_Selected == true && isshooting == false && Inv.slot3_mag_ammo > 0){
             isshooting = true;
             //Raycast schuss
             RaycastHit2D hitinfo = Physics2D.Raycast(Feuerpunkt.transform.position, Feuerpunkt.transform.up, 150f); //Glock schießt 50f weit
@@ -733,7 +733,7 @@ public class Shoot : MonoBehaviour
         }
 
         //Reload Sniper
-        if(Inv.slot3_mag_ammo == 0 && inreload == false && Inv.big_ammo > 0 && GameObject.Find("Player").GetComponent<Inventory_Handler>().Sniper_Selected == true && isshooting == false){
+        if(Inv.slot3_mag_ammo == 0 && inreload == false && Inv.big_ammo > 0 && Inv.Sniper_Selected == true && isshooting == false){
             inreload = true;
             Inv.big_ammo -= 5;
             if(Inv.big_ammo < 0){
@@ -788,8 +788,9 @@ public class Shoot : MonoBehaviour
     }
 
     public IEnumerator reload(){
+        if(Inv.Slot1_Selected){
         //Reload Glock-18
-        if(inreload == false && GameObject.Find("Player").GetComponent<Inventory_Handler>().Glock_18_Selected == true && isshooting == false && Inv.slot1_mag_ammo != 12 && Inv.slot1_mag_ammo != 0){
+        if(inreload == false && Inv.Glock_18_Selected == true && isshooting == false && Inv.slot1_mag_ammo != 12 && Inv.slot1_mag_ammo != 0){
             inreload = true;
             yield return new WaitForSeconds(2f);
             Inv.small_ammo += Inv.slot1_mag_ammo;
@@ -804,7 +805,7 @@ public class Shoot : MonoBehaviour
         }
 
         //Reload M4
-        if(inreload == false && GameObject.Find("Player").GetComponent<Inventory_Handler>().M4_Selected == true && isshooting == false && Inv.slot1_mag_ammo != 25){
+        if(inreload == false && Inv.M4_Selected == true && isshooting == false && Inv.slot1_mag_ammo != 25){
             inreload = true;
             yield return new WaitForSeconds(4f);
             Inv.mid_ammo += Inv.slot1_mag_ammo;
@@ -819,7 +820,7 @@ public class Shoot : MonoBehaviour
         }
 
         //Reload M4
-        if(inreload == false && GameObject.Find("Player").GetComponent<Inventory_Handler>().Ak47_Selected == true && isshooting == false && Inv.slot1_mag_ammo != 25){
+        if(inreload == false && Inv.Ak47_Selected == true && isshooting == false && Inv.slot1_mag_ammo != 25){
             inreload = true;
             yield return new WaitForSeconds(4f);
             Inv.mid_ammo += Inv.slot1_mag_ammo;
@@ -834,7 +835,7 @@ public class Shoot : MonoBehaviour
         }
 
         //Reload Sniper
-        if(inreload == false && GameObject.Find("Player").GetComponent<Inventory_Handler>().Sniper_Selected == true && isshooting == false && Inv.slot1_mag_ammo != 5){
+        if(inreload == false && Inv.Sniper_Selected == true && isshooting == false && Inv.slot1_mag_ammo != 5){
             inreload = true;
             yield return new WaitForSeconds(5f);
             Inv.big_ammo += Inv.slot1_mag_ammo;
@@ -847,5 +848,128 @@ public class Shoot : MonoBehaviour
             }
             inreload = false;
         }
+    }
+    else if(Inv.Slot2_Selected){
+        //Reload Glock-18
+        if(inreload == false && Inv.Glock_18_Selected == true && isshooting == false && Inv.slot2_mag_ammo != 12 && Inv.slot2_mag_ammo != 0){
+            inreload = true;
+            yield return new WaitForSeconds(2f);
+            Inv.small_ammo += Inv.slot2_mag_ammo;
+            if(Inv.small_ammo >= 12){
+                Inv.slot2_mag_ammo = 12;
+                Inv.small_ammo -= 12;
+            }else if(Inv.small_ammo < 12){
+                Inv.slot2_mag_ammo = Inv.small_ammo;
+                Inv.small_ammo = 0;
+            }
+            inreload = false;
+        }
+
+        //Reload M4
+        if(inreload == false && Inv.M4_Selected == true && isshooting == false && Inv.slot2_mag_ammo != 25){
+            inreload = true;
+            yield return new WaitForSeconds(4f);
+            Inv.mid_ammo += Inv.slot2_mag_ammo;
+            if(Inv.mid_ammo >= 25){
+                Inv.slot2_mag_ammo = 25;
+                Inv.mid_ammo -= 25;
+            }else if(Inv.mid_ammo < 25){
+                Inv.slot2_mag_ammo = Inv.mid_ammo;
+                Inv.mid_ammo = 0;
+            }
+            inreload = false;
+        }
+
+        //Reload M4
+        if(inreload == false && Inv.Ak47_Selected == true && isshooting == false && Inv.slot2_mag_ammo != 25){
+            inreload = true;
+            yield return new WaitForSeconds(4f);
+            Inv.mid_ammo += Inv.slot2_mag_ammo;
+            if(Inv.mid_ammo >= 25){
+                Inv.slot2_mag_ammo = 25;
+                Inv.mid_ammo -= 25;
+            }else if(Inv.mid_ammo < 25){
+                Inv.slot2_mag_ammo = Inv.mid_ammo;
+                Inv.mid_ammo = 0;
+            }
+            inreload = false;
+        }
+
+        //Reload Sniper
+        if(inreload == false && Inv.Sniper_Selected == true && isshooting == false && Inv.slot2_mag_ammo != 5){
+            inreload = true;
+            yield return new WaitForSeconds(5f);
+            Inv.big_ammo += Inv.slot2_mag_ammo;
+            if(Inv.big_ammo >= 5){
+                Inv.slot2_mag_ammo = 5;
+                Inv.big_ammo -= 5;
+            }else if(Inv.big_ammo < 5){
+                Inv.slot2_mag_ammo = Inv.big_ammo;
+                Inv.big_ammo = 0;
+            }
+            inreload = false;
+        }
+    }
+    else if(Inv.Slot3_Selected){
+        //Reload Glock-18
+        if(inreload == false && Inv.Glock_18_Selected == true && isshooting == false && Inv.slot3_mag_ammo != 12 && Inv.slot3_mag_ammo != 0){
+            inreload = true;
+            yield return new WaitForSeconds(2f);
+            Inv.small_ammo += Inv.slot3_mag_ammo;
+            if(Inv.small_ammo >= 12){
+                Inv.slot3_mag_ammo = 12;
+                Inv.small_ammo -= 12;
+            }else if(Inv.small_ammo < 12){
+                Inv.slot3_mag_ammo = Inv.small_ammo;
+                Inv.small_ammo = 0;
+            }
+            inreload = false;
+        }
+
+        //Reload M4
+        if(inreload == false && Inv.M4_Selected == true && isshooting == false && Inv.slot3_mag_ammo != 25){
+            inreload = true;
+            yield return new WaitForSeconds(4f);
+            Inv.mid_ammo += Inv.slot3_mag_ammo;
+            if(Inv.mid_ammo >= 25){
+                Inv.slot3_mag_ammo = 25;
+                Inv.mid_ammo -= 25;
+            }else if(Inv.mid_ammo < 25){
+                Inv.slot3_mag_ammo = Inv.mid_ammo;
+                Inv.mid_ammo = 0;
+            }
+            inreload = false;
+        }
+
+        //Reload M4
+        if(inreload == false && Inv.Ak47_Selected == true && isshooting == false && Inv.slot3_mag_ammo != 25){
+            inreload = true;
+            yield return new WaitForSeconds(4f);
+            Inv.mid_ammo += Inv.slot3_mag_ammo;
+            if(Inv.mid_ammo >= 25){
+                Inv.slot3_mag_ammo = 25;
+                Inv.mid_ammo -= 25;
+            }else if(Inv.mid_ammo < 25){
+                Inv.slot3_mag_ammo = Inv.mid_ammo;
+                Inv.mid_ammo = 0;
+            }
+            inreload = false;
+        }
+
+        //Reload Sniper
+        if(inreload == false && Inv.Sniper_Selected == true && isshooting == false && Inv.slot3_mag_ammo != 5){
+            inreload = true;
+            yield return new WaitForSeconds(5f);
+            Inv.big_ammo += Inv.slot3_mag_ammo;
+            if(Inv.big_ammo >= 5){
+                Inv.slot3_mag_ammo = 5;
+                Inv.big_ammo -= 5;
+            }else if(Inv.big_ammo < 5){
+                Inv.slot3_mag_ammo = Inv.big_ammo;
+                Inv.big_ammo = 0;
+            }
+            inreload = false;
+        }
+    }
     }
 }

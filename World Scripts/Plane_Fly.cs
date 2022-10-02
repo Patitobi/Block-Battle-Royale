@@ -5,7 +5,9 @@ using UnityEngine;
 public class Plane_Fly : MonoBehaviour
 {
     public float FlugzeugStartTime;
+    private Rigidbody2D rb;
     void Awake(){
+        rb = this.gameObject.GetComponent<Rigidbody2D>();
         StartCoroutine(Start());
     }
 
@@ -18,7 +20,7 @@ public class Plane_Fly : MonoBehaviour
         }
 
         for(int i = 0; i < 180; i++){
-            GetComponent<Rigidbody2D>().rotation += 0.25f;
+            rb.rotation += 0.25f;
             this.gameObject.transform.Translate(Vector3.up * 0.05f,Space.Self);
             yield return new WaitForSeconds(0.02f);
         }
@@ -29,13 +31,13 @@ public class Plane_Fly : MonoBehaviour
         }
 
         for(int i = 0; i < 180; i++){
-            GetComponent<Rigidbody2D>().rotation -= 0.25f;
+            rb.rotation -= 0.25f;
             this.gameObject.transform.Translate(Vector3.up * 0.05f,Space.Self);
             yield return new WaitForSeconds(0.02f);
         }
 
         for(int i = 0; i < 180; i++){
-            GetComponent<Rigidbody2D>().rotation -= 0.25f;
+            rb.rotation -= 0.25f;
             this.gameObject.transform.Translate(Vector3.up * 0.041f,Space.Self);
             yield return new WaitForSeconds(0.02f);
         }
@@ -48,16 +50,16 @@ public class Plane_Fly : MonoBehaviour
         yield return new WaitForSeconds(4f);
         float beschleuning = 0.08f;
         for(int i = 0; beschleuning <= 60f; i++){
-            GetComponent<Rigidbody2D>().velocity = new Vector2(0f, beschleuning); //Abheben
+            rb.velocity = new Vector2(0f, beschleuning); //Abheben
             beschleuning *= 1.2f;
             yield return new WaitForSeconds(0.3f);
         }
 
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(1f);
         GetComponent<BoxCollider2D>().isTrigger = true;
         //Scale the Plane down
-        for(int i = 0; i < 30; i++){
-            this.gameObject.transform.localScale -= new Vector3(0.01f,0.01f,0f);
+        for(int i = 0; i < 60; i++){
+            this.gameObject.transform.localScale -= new Vector3(0.005f,0.005f,0f);
             yield return new WaitForSeconds(0.07f);
         }
         Destroy(this.gameObject);

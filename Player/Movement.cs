@@ -33,7 +33,7 @@ public class Movement : MonoBehaviour
     public bool lootbutton;
     public string Player_Name_Ingame;
     public GameObject Name_Text;
-    public GameObject PostProcessingVolume;
+    public GameObject PostProcessingVolume, Wald;
 
     void Awake(){
         //Performance Settings from Menu
@@ -41,6 +41,8 @@ public class Movement : MonoBehaviour
             //-Low Performance settings-
             //Disable Post Processing
             PostProcessingVolume.SetActive(false);
+        }else{
+            PostProcessingVolume.SetActive(true);
         }
     }
 

@@ -67,13 +67,12 @@ public class Map_Manager : MonoBehaviour
 
     IEnumerator PlayerCheck(){
         while(true){
-        yield return new WaitForSeconds(3f);
         x =  GameObject.FindGameObjectsWithTag("Bot");
         Playercount = x.Length;
         x = GameObject.FindGameObjectsWithTag("Player");
         Playercount += x.Length;
         GameObject.Find("PlayerCount").GetComponent<Text>().text = Playercount.ToString();
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(5f);
         }
     }
 }

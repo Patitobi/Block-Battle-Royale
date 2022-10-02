@@ -352,7 +352,7 @@ public class Bot_Behavior : MonoBehaviour
             if(EnemyContact == true && Enemy != null) movenormal = false;
             //Random Waffe raus hohlen und dann schießen.
             if(!runaway){ //Nur wenn er nicht wegläuft schiessen sonst schießt er ins nichts
-            bot_shoot.Shoot(); //Schießen
+            StartCoroutine(bot_shoot.Shoot()); //Schießen
             if(schleifeny <= 1) schleifeny++;
             if(schleifeny == 1){
                 randomizerweaponmax = Bot.GetComponent<Bot_Inventory>().lootcount;

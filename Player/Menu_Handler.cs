@@ -16,7 +16,7 @@ public class Menu_Handler : MonoBehaviour
     public static int Menu_Bots = 0;
     public float CAMSPEED = 0.001f;
     public float Playerspinspeed;
-    public static bool performancemode;
+    public static bool performancemode = true;
 
     void Awake(){
         ChooseBG();
@@ -99,7 +99,7 @@ public class Menu_Handler : MonoBehaviour
     }
 
     public void performanceswitch(bool mode){
-        performancemode = mode;  
+        performancemode = mode;
     }
 
     public IEnumerator BGMove(){

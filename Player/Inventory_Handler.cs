@@ -134,7 +134,7 @@ public class Inventory_Handler : MonoBehaviour
             counter++;
             DisplayAverage = Average / counter;
             FPS_Counter.text = "FPS:" + current.ToString() + "\n" + "Average:" + DisplayAverage.ToString();
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(.1f);
         }
         //Mit Minimap:
         //PC Average: 36FPS
