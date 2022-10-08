@@ -4,8 +4,9 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using TMPro;
 using UnityEngine.Rendering.Universal;
+using Unity.Netcode;
 
-public class Movement : MonoBehaviour
+public class Movement : NetworkBehaviour
 {
     public float speed;
     Rigidbody2D rb;
@@ -33,22 +34,24 @@ public class Movement : MonoBehaviour
     public bool lootbutton;
     public string Player_Name_Ingame;
     public GameObject Name_Text;
-    public GameObject PostProcessingVolume, Wald;
+    //public GameObject PostProcessingVolume, Wald;
 
     void Awake(){
         //Performance Settings from Menu
-        if(Menu_Handler.performancemode == false){
+        /*if(Menu_Handler.performancemode == false){
             //-Low Performance settings-
             //Disable Post Processing
             PostProcessingVolume.SetActive(false);
         }else{
             PostProcessingVolume.SetActive(true);
-        }
+        }*/
     }
 
     // Start is called before the first frame update
     void Start()
     {
+        if(IsOwner){
+        GameObject.Find("Main Camera").GetComponent<no_Camera_rotation>().player = this.gameObject; //Camera fängt an zu folgen
         Player_Name_Ingame = Menu_Handler.Player_Name;
         Name_Text.GetComponent<TextMeshPro>().text = Player_Name_Ingame;
         World = GameObject.Find("World");
@@ -56,6 +59,9 @@ public class Movement : MonoBehaviour
         animatior = gameObject.GetComponent<Animator>();
         Shoot = Player.GetComponent<Shoot>();
         StartCoroutine(FootstepGen());
+        joystick1 = GameObject.Find("Fixed Joystick Laufen").GetComponent<FixedJoystick>();
+        joystick2 = GameObject.Find("Fixed Joystick Umschauen").GetComponent<FixedJoystick>();
+        }
     }
 
     // Update is called once per frame
@@ -67,6 +73,7 @@ public class Movement : MonoBehaviour
 
     void FixedUpdate()
     {   
+        if(IsOwner){
         float X = joystick1.Horizontal;
         float Y = joystick1.Vertical;
 
@@ -100,6 +107,7 @@ public class Movement : MonoBehaviour
 
         if(new Vector2(RotateX,RotateY) != Vector2.zero){
             transform.up = new Vector2(RotateX,RotateY);
+        }
         }
     }
 

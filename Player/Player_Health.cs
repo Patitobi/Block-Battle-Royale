@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Unity.Netcode;
 
-public class Player_Health : MonoBehaviour
+public class Player_Health : NetworkBehaviour
 {
     public float health;
     public float Maxhealth;
@@ -13,15 +14,19 @@ public class Player_Health : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if(IsOwner){
         health = 200f;
         Lebenstext = GameObject.Find("Lebenstext").GetComponent<Text>();
         Maxhealth = 200f;
         World = GameObject.Find("World");
+        Healthbar = GameObject.Find("Health_Bar");
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(IsOwner){
         Lebenstext.text = health.ToString() + "%";
         Healthbar.GetComponent<Image>().fillAmount = health / Maxhealth;
         if(health <= 20){
@@ -35,5 +40,6 @@ public class Player_Health : MonoBehaviour
             Destroy(this.gameObject);
             Time.timeScale = 0;
         }
+    }
     }
 }

@@ -1,13 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.Netcode;
 
-public class Kisten_Spawn : MonoBehaviour
+public class Kisten_Spawn : NetworkBehaviour
 {
     public GameObject[] Kiste_Obenarr, Kiste_Untenarr, Kiste_Rechtsarr, Kiste_Linksarr;
     public GameObject Kiste_Oben, Kiste_Unten, Kiste_Rechts, Kiste_Links;
     void Awake()
     {
+        if(IsHost || IsServer){
         Kiste_Untenarr =  GameObject.FindGameObjectsWithTag("Kiste_Unten");
         Kiste_Obenarr = GameObject.FindGameObjectsWithTag("Kiste_Oben");
         Kiste_Linksarr = GameObject.FindGameObjectsWithTag("Kiste_Links");
@@ -40,5 +42,6 @@ public class Kisten_Spawn : MonoBehaviour
                 Instantiate(Kiste_Rechts, new Vector3(i.transform.position.x, i.transform.position.y, 120f), i.transform.rotation);
             }
         }
+    }
     }
 }

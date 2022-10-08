@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Unity.Netcode;
 
-public class Shoot : MonoBehaviour
+public class Shoot : NetworkBehaviour
 {
     public Inventory_Handler Inv;
     [SerializeField] private GameObject Player;
@@ -28,6 +29,7 @@ public class Shoot : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(IsOwner){
         if(shootbttn == true){
             StartCoroutine(shoot()); //Optimierbar indem die funtion nicht jeden Frame ausgeführt wird!!!!!!!!!!!!
         }
@@ -35,9 +37,11 @@ public class Shoot : MonoBehaviour
         if(reloadbttn == true){
             StartCoroutine(reload());
         }
+        }
     }
 
      IEnumerator shoot(){
+        if(IsOwner){
         if(Inv.Slot1_Selected == true){
         //Glock-18
         if(Inv.Glock_18_Selected == true && isshooting == false && Inv.slot1_mag_ammo > 0){
@@ -749,6 +753,7 @@ public class Shoot : MonoBehaviour
             inreload = false;
         }
     }
+    }
 }
     
 
@@ -758,16 +763,21 @@ public class Shoot : MonoBehaviour
     
     //Shootbutton variablen
     public void shootbutton(){
+        if(IsOwner){
         shootbttn = true;
+        }
     }
     public void shootbuttonrelease(){
+        if(IsOwner){
         if(!autoshootbttn){
             shootbttn = false;
+        }
         }
     }
 
     //Autoshoot button
     public void Autoshoot(){
+        if(IsOwner){
         if(!autoshootbttn){
             shootbttn = true;
             autoshootbttn = true;
@@ -777,17 +787,23 @@ public class Shoot : MonoBehaviour
             autoshootbttn = false;
             GameObject.Find("Autoshoot").GetComponent<Image>().sprite = Redbutton;
         }
+        }
     }
 
     //Reloadbutton variablen
     public void reloadbutton(){
+        if(IsOwner){
         reloadbttn = true;
+        }
     }
     public void reloadbuttonrelease(){
+        if(IsOwner){
         reloadbttn = false;
+        }
     }
 
     public IEnumerator reload(){
+        if(IsOwner){
         if(Inv.Slot1_Selected){
         //Reload Glock-18
         if(inreload == false && Inv.Glock_18_Selected == true && isshooting == false && Inv.slot1_mag_ammo != 12 && Inv.slot1_mag_ammo != 0){
@@ -970,6 +986,7 @@ public class Shoot : MonoBehaviour
             }
             inreload = false;
         }
+    }
     }
     }
 }

@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Unity.Netcode;
 
-public class Inventory_Handler : MonoBehaviour
+public class Inventory_Handler : NetworkBehaviour
 {
     //Bools von denen aber nur eine gleichzeitig aktiv seien kann da ja nur eine Waffe in der hand gehalten werden kann.
     public bool Glock_18_Selected;
@@ -59,20 +60,33 @@ public class Inventory_Handler : MonoBehaviour
     [SerializeField] public GameObject Glock_18_Item, M4_Item, AK_47_Item, Sniper_Item, Slot1_GameObject, Slot2_GameObject, Slot3_GameObject;
     [SerializeField] private Sprite Placeholder;
     private Animator animator;
+    public string IPV4toText;
+    private Ping ping;
+    private int clientpingtime;
 
     // Start is called before the first frame update
     void Start()
     {
+        if(IsOwner){
         Healtxt = GameObject.Find("Heal_Count").GetComponent<Text>();
-        Player = GameObject.Find("Player");
+        Player = this.gameObject;
         Player_Heal = 0;
-        StartCoroutine(Counting_FPS());
         animator = gameObject.GetComponent<Animator>();
+        MainCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
+        FPS_Counter = GameObject.Find("FPS").GetComponent<Text>();
+        //Get IP from Network Manager to display on FPS Text field
+        IPV4toText = Network_Manager_Ui.IPV4;
+        StartCoroutine(Counting_FPS());
+        //Ping
+        ping = new Ping(IPV4toText); //Ping die Ip einmal zu der wir connected sind
+        StartCoroutine(ClientPing());
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(IsOwner){
         //Aktualisierung des Heal-Counters im Inv.
         Healtxt.text = Player_Heal.ToString();
 
@@ -118,11 +132,15 @@ public class Inventory_Handler : MonoBehaviour
         }else{
             CurrentMag = 0;
         }
+        }
     }
 
     void LateUpdate() {
+        //Sehr schwammiger code
+        if(IsOwner){
         lootcount = lootcount2; //Ist dazu da den Lootcount ein wenig später zu aktualisieren damit langsame handys keine Probleme beim Lootcount haben
         Player_Heal = Player_Heal2;
+        }
     }
 
 
@@ -133,20 +151,35 @@ public class Inventory_Handler : MonoBehaviour
             Average = Average + current; // Calc Average FPS
             counter++;
             DisplayAverage = Average / counter;
-            FPS_Counter.text = "FPS:" + current.ToString() + "\n" + "Average:" + DisplayAverage.ToString();
-            yield return new WaitForSeconds(.1f);
+            //---------------------------------------------
+            FPS_Counter.text = 
+            "FPS:" + current.ToString() + "\n" + 
+            "Average:" + DisplayAverage.ToString() + "\n" +
+            "Server IP:" + IPV4toText + "\n" +
+            "Ping:" + clientpingtime + "ms";
+            //---------------------------------------------
+            yield return new WaitForSeconds(.2f);
         }
         //Mit Minimap:
-        //PC Average: 36FPS
         //Samsung J6 Average: 16FPS
         //Ohne Minimap
-        //PC Average: 38FPS
         //Samsung J6 Average: 31FPS
-        //19 Bots on Map
-        //PC Average: 40-50FPS
+        //19 Bots    
         //Samsung J6 Average: 10FPS
     }
+
+
+    private IEnumerator ClientPing(){
+        while(true){
+            ping = new Ping(IPV4toText);
+            yield return new WaitForSeconds(1f);
+            while(!ping.isDone) yield return null;
+            
+            clientpingtime = ping.time;
+        }
+    }
     IEnumerator CameraZoomOut(){
+        if(IsOwner){
         //Camera passt sich zur Waffe an
             if(Sniper_Selected){
                 //Mach die Waffe in der Hand animation an
@@ -209,8 +242,10 @@ public class Inventory_Handler : MonoBehaviour
                 yield return new WaitForSeconds(0.01f);
             }
         }
+        }
     }
     public void CheckforWeaponDrop(string x){
+        if(IsOwner){
         if(x == lastslot){
             clickcount++;
         }else if(x != lastslot){
@@ -311,7 +346,9 @@ public class Inventory_Handler : MonoBehaviour
                 }
             }
         }
+        }
     public void DeleteSlot(int slotnum){
+        if(IsOwner){
         if(slotnum == 1){
             Slot1_GameObject = null; //Clear Slot 1
             Slot1 = false;
@@ -330,6 +367,7 @@ public class Inventory_Handler : MonoBehaviour
             lootcount2 -= 1;
             slot3_mag_ammo = 0;
             GameObject.Find("Icon3").GetComponent<Image>().sprite = Placeholder; 
+        }
         }
     }
 
@@ -411,6 +449,7 @@ public class Inventory_Handler : MonoBehaviour
 
 
     public void Slot1_function(){
+        if(IsOwner){
         if(Slot1_Item == "Glock_18"){
             //Aktive Waffe
             Weapons.transform.Find("Glock_18_Top_Sprite").gameObject.SetActive(true);
@@ -478,7 +517,9 @@ public class Inventory_Handler : MonoBehaviour
         //Mach die Waffe in der Hand sichtbar
         gameObject.GetComponent<Weapon_Visibility>().Checkvisibility();
     }
+    }
     public void Slot2_function(){
+        if(IsOwner){
         if(Slot2_Item == "Glock_18"){
             //Aktive Waffe
             Weapons.transform.Find("Glock_18_Top_Sprite").gameObject.SetActive(true);
@@ -546,7 +587,9 @@ public class Inventory_Handler : MonoBehaviour
         //Mach die Waffe in der Hand sichtbar
         gameObject.GetComponent<Weapon_Visibility>().Checkvisibility();
     }
+    }
     public void Slot3_function(){
+        if(IsOwner){
         if(Slot3_Item == "Glock_18"){
             //Aktive Waffe
             Weapons.transform.Find("Glock_18_Top_Sprite").gameObject.SetActive(true);
@@ -614,12 +657,15 @@ public class Inventory_Handler : MonoBehaviour
         //Mach die Waffe in der Hand sichtbar
         gameObject.GetComponent<Weapon_Visibility>().Checkvisibility(); 
     }
+    }
 
     public void Slot4_function(){
+        if(IsOwner){
         //Heal Funktion
         if(Player_Heal > 0 && GameObject.Find("Player").GetComponent<Player_Health>().health < 200){
             Player_Heal2 -= 1;
             GameObject.Find("Player").GetComponent<Player_Health>().health += 20;
+        }
         }
     }
 }
