@@ -220,14 +220,14 @@ public class Inventory_Handler : MonoBehaviour
         dropoffsetx = 0; //reset damit beim nächsten durchlauf die if statements nicht übersprungen werden
         dropoffsety = 0;
             do{
-                dropoffsetx = Random.Range(-2.2f, 2.2f);
-            }while((dropoffsetx < 2.5 && dropoffsetx > 2.2 || dropoffsetx < -2.2 && dropoffsetx > -2.2));
+                dropoffsetx = Random.Range(-4.2f, 4.2f);
+            }while((dropoffsetx < 4.5 && dropoffsetx > 4.2 || dropoffsetx < -4.2 && dropoffsetx > -4.2));
             do{
-                dropoffsety = Random.Range(-2.2f, 2.2f);
-            }while((dropoffsety < 2.5 && dropoffsety > 2.2 || dropoffsety < -2.2 && dropoffsety > -2.2));
+                dropoffsety = Random.Range(-3.2f, 3.2f);
+            }while((dropoffsety < 3.5 && dropoffsety > 3.2 || dropoffsety < -3.2 && dropoffsety > -3.2));
             if(lastslot == "Slot1"){
                 //Get all Information from dropped weapon and give the Ammo back to the Player
-                //Droppe die Waffe in nem Random ort in einem kleinem Radius von 2f bis -2f
+                //Droppe die Waffe in nem Random ort in einem kleinem Radius.
                 if(Slot1_Item == "Glock_18"){
                     small_ammo += slot1_mag_ammo;
                     Instantiate(Glock_18_Item, new Vector3(Player.transform.position.x + dropoffsetx, Player.transform.position.y + dropoffsety, 120f), Quaternion.identity);
@@ -314,18 +314,21 @@ public class Inventory_Handler : MonoBehaviour
     public void DeleteSlot(int slotnum){
         if(slotnum == 1){
             Slot1_GameObject = null; //Clear Slot 1
+            Slot1_Item = null;
             Slot1 = false;
             lootcount2 -= 1;
             slot1_mag_ammo = 0;
             GameObject.Find("Icon1").GetComponent<Image>().sprite = Placeholder; 
         }else if(slotnum == 2){
             Slot2_GameObject = null; //Clear Slot 2
+            Slot2_Item = null;
             Slot2 = false;
             lootcount2 -= 1;
             slot2_mag_ammo = 0;
             GameObject.Find("Icon2").GetComponent<Image>().sprite = Placeholder; 
         }else if(slotnum == 3){
             Slot3_GameObject = null; //Clear Slot 3
+            Slot3_Item = null;
             Slot3 = false;
             lootcount2 -= 1;
             slot3_mag_ammo = 0;

@@ -18,22 +18,21 @@ public class Player_Health : MonoBehaviour
         Maxhealth = 200f;
         World = GameObject.Find("World");
     }
-
-    // Update is called once per frame
-    void Update()
-    {
+    
+    public void Damage(int Dmg){
+        health -= Dmg;
+        //Check for death
+        if(health <= 0){
+            Destroy(this.gameObject);
+            Time.timeScale = 0;
+        }
+        //UI Update
         Lebenstext.text = health.ToString() + "%";
         Healthbar.GetComponent<Image>().fillAmount = health / Maxhealth;
         if(health <= 20){
             Healthbar.GetComponent<Image>().color = Color.red;
         }else{
             Healthbar.GetComponent<Image>().color = Color.green;
-        }
-
-        //Spieler stirbt wenn er 0HP hat
-        if(health <= 0){
-            Destroy(this.gameObject);
-            Time.timeScale = 0;
         }
     }
 }

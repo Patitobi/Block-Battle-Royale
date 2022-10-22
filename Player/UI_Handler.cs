@@ -14,20 +14,21 @@ public class UI_Handler : MonoBehaviour
     private GameObject[] AllrenderableGameObjects;
 
     public void Start(){
-       AllrenderableGameObjects = FindObjectsOfType<Render_Manager>().Select(rm => rm.gameObject).ToArray();
+       //AllrenderableGameObjects = FindObjectsOfType<Render_Manager>().Select(rm => rm.gameObject).ToArray();
     }
 
     public void Mapbutton(){
         //Mache Alles auf der Karte sichtbar
-        foreach(GameObject i in AllrenderableGameObjects){
+        /*foreach(GameObject i in AllrenderableGameObjects){
             if(i != null){
                 i.GetComponent<Renderer>().enabled = true;
             }
-        }
+        }*/
         MinimapCam.SetActive(true);
         BigMap.SetActive(true);
         X_Button.SetActive(true);
         Home_Button.SetActive(true);
+        //Zone Alpha muss auf 0 gesetzt werden da sonst minimap textur transparent ist
 
         Time.timeScale = 0; //Pausiere das Spiel
     }

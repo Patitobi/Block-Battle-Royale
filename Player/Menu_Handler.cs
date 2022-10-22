@@ -143,7 +143,9 @@ public class Menu_Handler : MonoBehaviour
 
         Name_Input.SetActive(false); //Input Field
 
-        Player_Name = Nick;
+        if(Nick == null){
+            Player_Name = "Player";
+        }else Player_Name = Nick;
         
         Refresh_PlayerName();
     }

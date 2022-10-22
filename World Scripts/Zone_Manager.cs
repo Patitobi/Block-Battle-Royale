@@ -31,7 +31,7 @@ public class Zone_Manager : MonoBehaviour
         righttransform = GameObject.Find("zone_right").transform;
         bottomtransform = GameObject.Find("zone_bottom").transform;
 
-        SetZoneSize(new Vector3(0f,0f, -9.199997f), new Vector3(1082.59f,1082.59f, 0f));
+        SetZoneSize(new Vector3(0f,0f, -9.199997f), new Vector3(1344.96f,1344.96f, 0f));
     }
 
     void Update(){
@@ -55,10 +55,10 @@ public class Zone_Manager : MonoBehaviour
 
         //Alle Zonen Teile werden auf Die Zonen Größe und Position zugeschnitten.
         toptransform.localScale = new Vector3(2000, 2000);
-        toptransform.localPosition = new Vector3(0, toptransform.localScale.y * 0.5f + size.y * 0.5f,-9.199997f);
+        toptransform.localPosition = new Vector3(0f, toptransform.localScale.y * .5f + size.y * .5f,-9.199997f);
 
         bottomtransform.localScale = new Vector3(2000, 2000);
-        bottomtransform.localPosition = new Vector3(0, -toptransform.localScale.y * 0.5f - size.y * 0.5f,-9.199997f);
+        bottomtransform.localPosition = new Vector3(0f, -toptransform.localScale.y * .5f - size.y * .5f,-9.199997f);
 
         lefttransform.localScale = new Vector3(2000, size.y);
         lefttransform.localPosition = new Vector3(-lefttransform.localScale.x * .5f - size.x * .5f, 0f, -9.199997f);

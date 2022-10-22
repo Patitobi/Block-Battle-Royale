@@ -49,9 +49,9 @@ public class Bot_Behavior : MonoBehaviour
     public float[] sums = new float[4];
     public float Player_Distance;
     public bool spawn_steps;
-    public GameObject Player, Bot_Name_Text;
+    public GameObject Player, Bot_Name_Text, Healthbar;
     private Bot_Optimazation bot_optimazation;
-    private Rigidbody2D Bot_Name_Text_rb;
+    private Rigidbody2D Bot_Name_Text_rb, Bot_Healthbar_rb;
     private RectTransform Bot_Name_Text_transform;
     private Bot_Shoot bot_shoot;
     void Awake() {
@@ -78,6 +78,10 @@ public class Bot_Behavior : MonoBehaviour
         //Name Bleibt überm Kopf
         Bot_Name_Text_rb.rotation = 0;
         Bot_Name_Text_transform.position = new Vector2(this.gameObject.transform.position.x, this.gameObject.transform.position.y + 1.5f);
+
+        //Healthbar bleibt rechts
+        Bot_Healthbar_rb.rotation = 0;
+        Healthbar.transform.position = new Vector2(this.transform.position.x + 1.5f, this.transform.position.y);
 
         //Setzt die summen in eine Array ein, damit sie später ausgewertet werden können
         /*sums[0] = rightsum;

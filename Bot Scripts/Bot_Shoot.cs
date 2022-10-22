@@ -30,9 +30,9 @@ public class Bot_Shoot : MonoBehaviour
             RaycastHit2D hitinfo = Physics2D.Raycast(Feuerpunkt.transform.position, Feuerpunkt.transform.up, 50f); //Glock schießt 50f weit
             if(hitinfo){
                 if(hitinfo.collider.gameObject.tag == "Player"){
-                    hitinfo.collider.gameObject.GetComponent<Player_Health>().health -= 15; //Player nimmt 15 Schaden
+                    hitinfo.collider.GetComponent<Player_Health>().Damage(15);
                 }else if(hitinfo.collider.gameObject.tag == "Bot"){
-                    hitinfo.collider.gameObject.GetComponent<Bot_Health>().health -= 15; //Bot nimmt 15 Schaden
+                    hitinfo.collider.GetComponent<Bot_Health>().Damage(15);
                 }
                 
                 //Einschuss Animation (Blut)
@@ -78,10 +78,10 @@ public class Bot_Shoot : MonoBehaviour
                 RaycastHit2D hitinfo = Physics2D.Raycast(Feuerpunkt.transform.position, Feuerpunkt.transform.up, 50f); //Glock schießt 50f weit
                 if(hitinfo){
                     if(hitinfo.collider.gameObject.tag == "Player"){
-                        hitinfo.collider.gameObject.GetComponent<Player_Health>().health -= 20; //Player nimmt 15 Schaden
-                    }else if(hitinfo.collider.gameObject.tag == "Bot"){
-                        hitinfo.collider.gameObject.GetComponent<Bot_Health>().health -= 20; //Bot nimmt 15 Schaden
-                    }
+                    hitinfo.collider.GetComponent<Player_Health>().Damage(30);
+                }else if(hitinfo.collider.gameObject.tag == "Bot"){
+                    hitinfo.collider.GetComponent<Bot_Health>().Damage(30);
+                }
                 
                     //Einschuss Animation (Blut)
                     if(hitinfo.collider.gameObject.tag == "Player" || hitinfo.collider.gameObject.tag == "Bot"){
@@ -126,10 +126,10 @@ public class Bot_Shoot : MonoBehaviour
                 RaycastHit2D hitinfo = Physics2D.Raycast(Feuerpunkt.transform.position, Feuerpunkt.transform.up, 50f); //Glock schießt 50f weit
                 if(hitinfo){
                     if(hitinfo.collider.gameObject.tag == "Player"){
-                        hitinfo.collider.gameObject.GetComponent<Player_Health>().health -= 25; //Player nimmt 15 Schaden
-                    }else if(hitinfo.collider.gameObject.tag == "Bot"){
-                        hitinfo.collider.gameObject.GetComponent<Bot_Health>().health -= 25; //Bot nimmt 15 Schaden
-                    }
+                    hitinfo.collider.GetComponent<Player_Health>().Damage(35);
+                }else if(hitinfo.collider.gameObject.tag == "Bot"){
+                    hitinfo.collider.GetComponent<Bot_Health>().Damage(35);
+                }
                 
                     //Einschuss Animation (Blut)
                     if(hitinfo.collider.gameObject.tag == "Player" || hitinfo.collider.gameObject.tag == "Bot"){
@@ -173,9 +173,9 @@ public class Bot_Shoot : MonoBehaviour
             RaycastHit2D hitinfo = Physics2D.Raycast(Feuerpunkt.transform.position, Feuerpunkt.transform.up, 150f); //Glock schießt 50f weit
             if(hitinfo){
                 if(hitinfo.collider.gameObject.tag == "Player"){
-                    hitinfo.collider.gameObject.GetComponent<Player_Health>().health -= 150; //Player nimmt 150 Schaden
+                    hitinfo.collider.GetComponent<Player_Health>().Damage(150);
                 }else if(hitinfo.collider.gameObject.tag == "Bot"){
-                    hitinfo.collider.gameObject.GetComponent<Bot_Health>().health -= 150; //Bot nimmt 150 Schaden
+                    hitinfo.collider.GetComponent<Bot_Health>().Damage(150);
                 }
                 
                 //Einschuss Animation (Blut)
