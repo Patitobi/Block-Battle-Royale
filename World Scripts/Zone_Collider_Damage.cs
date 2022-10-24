@@ -11,7 +11,7 @@ public class Zone_Collider_Damage : MonoBehaviour
             Zone.GetComponent<Zone_Manager>().InZone = true;
         }
     }
-
+    # xxx Der Arsch
     private void OnTriggerExit2D(Collider2D collision) {
         if(collision.gameObject.tag == "Player"){
             Zone.GetComponent<Zone_Manager>().InZone = false;
